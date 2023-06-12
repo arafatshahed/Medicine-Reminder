@@ -13,6 +13,9 @@
 		89CEE40D2A31DD850046E2B1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89CEE40C2A31DD850046E2B1 /* Preview Assets.xcassets */; };
 		89CEE40F2A31DD850046E2B1 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE40E2A31DD850046E2B1 /* Persistence.swift */; };
 		89CEE4122A31DD850046E2B1 /* Medicine_Reminder.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE4102A31DD850046E2B1 /* Medicine_Reminder.xcdatamodeld */; };
+		89CEE41D2A31F11C0046E2B1 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE41C2A31F11C0046E2B1 /* OnboardingView.swift */; };
+		89CEE4212A332AAD0046E2B1 /* TabViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE4202A332AAD0046E2B1 /* TabViews.swift */; };
+		89CEE4232A3335800046E2B1 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE4222A3335800046E2B1 /* HomeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		89CEE4112A31DD850046E2B1 /* Medicine_Reminder.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Medicine_Reminder.xcdatamodel; sourceTree = "<group>"; };
 		89CEE4132A31DD850046E2B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89CEE4192A31DDF30046E2B1 /* Medicine Reminder.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Medicine Reminder.entitlements"; sourceTree = "<group>"; };
+		89CEE41C2A31F11C0046E2B1 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		89CEE4202A332AAD0046E2B1 /* TabViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabViews.swift; sourceTree = "<group>"; };
+		89CEE4222A3335800046E2B1 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +66,8 @@
 				89CEE4192A31DDF30046E2B1 /* Medicine Reminder.entitlements */,
 				89CEE4052A31DD840046E2B1 /* Medicine_ReminderApp.swift */,
 				89CEE4072A31DD840046E2B1 /* ContentView.swift */,
+				89CEE41F2A3329840046E2B1 /* Views */,
+				89CEE41E2A3329760046E2B1 /* Screens */,
 				89CEE4092A31DD850046E2B1 /* Assets.xcassets */,
 				89CEE40E2A31DD850046E2B1 /* Persistence.swift */,
 				89CEE4132A31DD850046E2B1 /* Info.plist */,
@@ -75,6 +83,23 @@
 				89CEE40C2A31DD850046E2B1 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		89CEE41E2A3329760046E2B1 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				89CEE4222A3335800046E2B1 /* HomeView.swift */,
+				89CEE41C2A31F11C0046E2B1 /* OnboardingView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		89CEE41F2A3329840046E2B1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				89CEE4202A332AAD0046E2B1 /* TabViews.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,8 +173,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				89CEE40F2A31DD850046E2B1 /* Persistence.swift in Sources */,
+				89CEE4232A3335800046E2B1 /* HomeView.swift in Sources */,
 				89CEE4122A31DD850046E2B1 /* Medicine_Reminder.xcdatamodeld in Sources */,
 				89CEE4082A31DD840046E2B1 /* ContentView.swift in Sources */,
+				89CEE41D2A31F11C0046E2B1 /* OnboardingView.swift in Sources */,
+				89CEE4212A332AAD0046E2B1 /* TabViews.swift in Sources */,
 				89CEE4062A31DD840046E2B1 /* Medicine_ReminderApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,12 +313,13 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2BL4KQW6R5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -320,12 +349,13 @@
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 2BL4KQW6R5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow camera";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
