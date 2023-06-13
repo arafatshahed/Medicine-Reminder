@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8945FACF2A385E9A006D8C50 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8945FACB2A385E99006D8C50 /* TextRecognizer.swift */; };
+		8945FAD02A385E9A006D8C50 /* ScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8945FACC2A385E99006D8C50 /* ScannerView.swift */; };
 		89CEE4062A31DD840046E2B1 /* Medicine_ReminderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE4052A31DD840046E2B1 /* Medicine_ReminderApp.swift */; };
 		89CEE4082A31DD840046E2B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE4072A31DD840046E2B1 /* ContentView.swift */; };
 		89CEE40A2A31DD850046E2B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89CEE4092A31DD850046E2B1 /* Assets.xcassets */; };
@@ -19,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8945FACB2A385E99006D8C50 /* TextRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		8945FACC2A385E99006D8C50 /* ScannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerView.swift; sourceTree = "<group>"; };
 		89CEE4022A31DD840046E2B1 /* Medicine Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Medicine Reminder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89CEE4052A31DD840046E2B1 /* Medicine_ReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medicine_ReminderApp.swift; sourceTree = "<group>"; };
 		89CEE4072A31DD840046E2B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +48,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8945FACA2A385E99006D8C50 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				8945FACB2A385E99006D8C50 /* TextRecognizer.swift */,
+				8945FACC2A385E99006D8C50 /* ScannerView.swift */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
 		89CEE3F92A31DD840046E2B1 = {
 			isa = PBXGroup;
 			children = (
@@ -66,6 +79,7 @@
 				89CEE4192A31DDF30046E2B1 /* Medicine Reminder.entitlements */,
 				89CEE4052A31DD840046E2B1 /* Medicine_ReminderApp.swift */,
 				89CEE4072A31DD840046E2B1 /* ContentView.swift */,
+				8945FACA2A385E99006D8C50 /* Scan */,
 				89CEE41F2A3329840046E2B1 /* Views */,
 				89CEE41E2A3329760046E2B1 /* Screens */,
 				89CEE4092A31DD850046E2B1 /* Assets.xcassets */,
@@ -172,10 +186,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8945FAD02A385E9A006D8C50 /* ScannerView.swift in Sources */,
 				89CEE40F2A31DD850046E2B1 /* Persistence.swift in Sources */,
 				89CEE4232A3335800046E2B1 /* HomeView.swift in Sources */,
 				89CEE4122A31DD850046E2B1 /* Medicine_Reminder.xcdatamodeld in Sources */,
 				89CEE4082A31DD840046E2B1 /* ContentView.swift in Sources */,
+				8945FACF2A385E9A006D8C50 /* TextRecognizer.swift in Sources */,
 				89CEE41D2A31F11C0046E2B1 /* OnboardingView.swift in Sources */,
 				89CEE4212A332AAD0046E2B1 /* TabViews.swift in Sources */,
 				89CEE4062A31DD840046E2B1 /* Medicine_ReminderApp.swift in Sources */,
