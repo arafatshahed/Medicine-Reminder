@@ -32,6 +32,7 @@ struct TabViews: View {
                 }
         }
         .accentColor(Color("tealBlue"))
+        
     }
 }
 
