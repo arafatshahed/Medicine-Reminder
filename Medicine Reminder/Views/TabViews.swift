@@ -25,7 +25,7 @@ struct TabViews: View {
                     Image(systemName: "pills.fill")
                     Text("Medications")
                 }
-            Text("More")
+            MedicineScheduleView()
                 .tabItem {
                     Image(systemName: "ellipsis")
                     Text("More")

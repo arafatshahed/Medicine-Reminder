@@ -14,8 +14,7 @@ struct HomeView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.timestamp, ascending: true)],
         animation: .default)
     private var medicines: FetchedResults<Medicine>
-    @State private var presentAlert = false
-    @State var medName = ""
+    @State private var showScannerView = false
     
     var body: some View {
         NavigationView {
@@ -23,6 +22,7 @@ struct HomeView: View {
                 ForEach(medicines) { medicine in
                     Text("\(medicine.timestamp ?? Date(), formatter: itemFormatter)")
                         .font(.title)
+                        .deleteDisabled(true)
     
                     NavigationLink {
                         Text("Name of medicine is :  \(medicine.medicineName!)")
@@ -61,16 +61,15 @@ struct HomeView: View {
                 }
                 ToolbarItem {
                     Button(action: {
-                        presentAlert = true
+                        showScannerView = true
                     }) {
                         Label("Add Item", systemImage: "plus")
                     }
-                    .sheet(isPresented: $presentAlert, content: {
+                    .sheet(isPresented: $showScannerView, content: {
                         self.makeScannerView()
                     })
                 }
             }
-            Text("Select an item")
         }
 
     }
@@ -108,10 +107,13 @@ struct HomeView: View {
     private func makeScannerView()-> ScannerView {
         ScannerView(completion: {
             textPerPage in
-            if let outputText = textPerPage?.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines){
-                addItem(medicineName: outputText)
+            if let outputText = textPerPage?.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines) {
+                let medicines = outputText.components(separatedBy: "\n")
+                for medicine in medicines {
+                    addItem(medicineName: medicine)
+                }
             }
-            self.presentAlert = false
+            self.showScannerView = false
         })
     }
 }

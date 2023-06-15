@@ -14,14 +14,16 @@ final class TextRecognizer{
     init(cameraScan:VNDocumentCameraScan) {
         self.cameraScan = cameraScan
     }
-    private let queue = DispatchQueue(label: "scan-codes",qos: .default,attributes: [],autoreleaseFrequency: .workItem)
+    private let queue = DispatchQueue(label: "scan-codes", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     func recognizeText(withCompletionHandler completionHandler:@escaping ([String])-> Void) {
         queue.async {
             let images = (0..<self.cameraScan.pageCount).compactMap({
                 self.cameraScan.imageOfPage(at: $0).cgImage
             })
             let imagesAndRequests = images.map({(image: $0, request:VNRecognizeTextRequest())})
-            let textPerPage = imagesAndRequests.map{image,request->String in
+            let textPerPage = imagesAndRequests.map{image, request->String in
+                request.recognitionLevel = .accurate
+                request.recognitionLanguages = ["en_US"]
                 let handler = VNImageRequestHandler(cgImage: image, options: [:])
                 do{
                     try handler.perform([request])
