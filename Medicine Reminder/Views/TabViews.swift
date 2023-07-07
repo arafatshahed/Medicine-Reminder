@@ -15,7 +15,7 @@ struct TabViews: View {
                     Image(systemName: "homekit")
                     Text("Home")
                 }
-            Text("Scan Prescription")
+            PrescriptionScanView()
                 .tabItem {
                     Image(systemName: "scanner.fill")
                     Text("Scan Prescription")
@@ -27,8 +27,8 @@ struct TabViews: View {
                 }
             MedicineScheduleView()
                 .tabItem {
-                    Image(systemName: "ellipsis")
-                    Text("More")
+                    Image(systemName: "clock.fill")
+                    Text("Medicine Schedule")
                 }
         }
         .accentColor(Color("tealBlue"))

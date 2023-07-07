@@ -11,7 +11,7 @@ struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.medicineStartDate, ascending: true)],
         animation: .default)
     private var medicines: FetchedResults<Medicine>
     @State private var showScannerView = false
@@ -20,13 +20,15 @@ struct HomeView: View {
         NavigationView {
             List {
                 ForEach(medicines) { medicine in
-                    Text("\(medicine.timestamp ?? Date(), formatter: itemFormatter)")
+                    Text("\(medicine.medicineStartDate ?? Date(), formatter: itemFormatter)")
                         .font(.title)
                         .deleteDisabled(true)
     
                     NavigationLink {
                         Text("Name of medicine is :  \(medicine.medicineName!)")
-                        Text("Timed added: \(medicine.timestamp ?? Date(), formatter: itemFormatter)")
+                        Text("Time added: \(medicine.medicineStartDate ?? Date())")
+                        Text("Consume till: \(medicine.medicineEndDate ?? Date())")
+                        Text(medicine.beforeMeal ? "Before meal" : "After meal")
                     } label: {
                         Rectangle()
                             .frame(height: 80)
@@ -43,7 +45,7 @@ struct HomeView: View {
                                     VStack(alignment: .leading){
                                         Text(medicine.medicineName!)
                                             .font(.title2)
-                                        Text("Take 1 Pill(s)")
+                                        Text("Take \(medicine.morningMedicineCount + medicine.noonMedicineCount + medicine.nightMedicineCount) Pill(s)")
                                     }
                                     Spacer()
                                 }
@@ -73,22 +75,6 @@ struct HomeView: View {
         }
 
     }
-    private func addItem(medicineName: String) {
-        withAnimation {
-            let newItem = Medicine(context: viewContext)
-            newItem.timestamp = Date()
-            newItem.medicineName = medicineName
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
@@ -108,9 +94,14 @@ struct HomeView: View {
         ScannerView(completion: {
             textPerPage in
             if let outputText = textPerPage?.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines) {
-                let medicines = outputText.components(separatedBy: "\n")
-                for medicine in medicines {
-                    addItem(medicineName: medicine)
+                let meds = MedicineParser.shared.convertToMedicineArray(data: outputText, viewContext: viewContext)
+                do {
+                    try viewContext.save()
+                } catch {
+                    // Replace this implementation with code to handle the error appropriately.
+                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                    let nsError = error as NSError
+                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
                 }
             }
             self.showScannerView = false

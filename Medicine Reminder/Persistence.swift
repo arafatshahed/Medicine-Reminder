@@ -14,9 +14,17 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
-            let newItem = Medicine(context: viewContext)
-            newItem.timestamp = Date()
-            newItem.medicineName = "Medicine"
+            let med = Medicine(context: viewContext)
+            med.medicineStartDate = Date()
+            med.medicineName = "Medicine"
+            var dateComponents = DateComponents()
+            dateComponents.day = 7
+            let futureDate = Calendar.current.date(byAdding: dateComponents, to: med.medicineStartDate!)
+            med.medicineEndDate = futureDate
+            med.morningMedicineCount = 1
+            med.noonMedicineCount = 1
+            med.nightMedicineCount = 1
+            med.beforeMeal = false
         }
         do {
             try viewContext.save()

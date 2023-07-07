@@ -9,6 +9,9 @@ import SwiftUI
 
 struct MedicineScheduleView: View {
     @State private var dose1: Date = Date()
+    @State var morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as? Date ?? Date()
+    @State var afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as? Date ?? Date()
+    @State var nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as? Date ?? Date()
     @State private var buttonWidth = UIScreen.main.bounds.width - 80
     var body: some View {
         
@@ -20,59 +23,57 @@ struct MedicineScheduleView: View {
                         .foregroundColor(.white)
                         .padding(.bottom)
                         .padding(.horizontal, 20)
-                    Text("When do you need to take the first dose?")
+                    Text("Your Medicine schedule")
                         .foregroundColor(.white)
                         .font(.title3)
                         .padding(.horizontal, 20)
                     Rectangle()
-                        .frame(height: 50)
-                        .foregroundColor(Color("itemBG"))
-                    
-                        .mask(RoundedCornerMask(cornerRadius: 20, corners: [.topLeft, .topRight]))
-                        .overlay{
-                            HStack{
-                                Spacer()
-                                Text("Take")
-                                Spacer()
-                                Text("1 Pill(s)")
-                                    .font(.system(size: 17, weight: .bold))
-                                Spacer()
-                                Button(action: {
-                                    
-                                }, label: {
-                                    Image(systemName: "highlighter")
-                                })
-                                .buttonStyle(.plain)
-                                
-                                Spacer()
-                            }
-                        }
+                        .frame(height: 0)
                 }
                 .background(content: {
                     Color("tealBlue")
                         .ignoresSafeArea()
                 })
                 VStack(alignment: .center){
+                    HStack{
+                        Text("Morning:")
+                            .font(.title2)
+                            .padding()
+                        Spacer()
+                        DatePicker("", selection: $morningMedicineTakingTime, displayedComponents: .hourAndMinute)
+                            .labelsHidden()
+                            .onChange(of: morningMedicineTakingTime){newDate in
+                                UserDefaults.standard.set(newDate, forKey: "morningMedicineTakingTime")
+                            }
+                    }
+                    .padding()
+                    HStack{
+                        Text("Afternoon:")
+                            .font(.title2)
+                            .padding()
+                        Spacer()
+                        DatePicker("", selection: $afternoonMedicineTakingTime, displayedComponents: .hourAndMinute)
+                            .labelsHidden()
+                            .onChange(of: afternoonMedicineTakingTime){newDate in
+                                UserDefaults.standard.set(newDate, forKey: "afternoonMedicineTakingTime")
+                            }
+                    }
+                    .padding()
+                    HStack{
+                        Text("Night:")
+                            .font(.title2)
+                            .padding()
+                        Spacer()
+                        DatePicker("", selection: $nightMedicineTakingTime, displayedComponents: .hourAndMinute)
+                            .labelsHidden()
+                            .onChange(of: nightMedicineTakingTime){newDate in
+                                UserDefaults.standard.set(newDate, forKey: "nightMedicineTakingTime")
+                            }
+                    }
+                    .padding()
                     
-                    DatePicker("", selection: $dose1, displayedComponents: .hourAndMinute)
-                        .labelsHidden()
-                        .datePickerStyle(.wheel)
+                    
                     Spacer()
-                    Button(action: {
-                        //                        isonBoardingViewActive = false
-                    }, label: {
-                        Text("Next")
-                            .foregroundColor(.white)
-                            .frame(width: buttonWidth, height: 50, alignment: .center)
-                        
-                        Image(systemName: "chevron.right")
-                            .offset(x: -40)
-                            .foregroundColor(.white)
-                    })
-                    .buttonStyle(.borderless)
-                    .background(Color("tealBlue"), alignment: .center)
-                    .cornerRadius(25)
-                    .padding(.bottom, 20)
                 }
             }
         }
@@ -83,17 +84,5 @@ struct MedicineScheduleView: View {
 struct MedicineScheduleView_Previews: PreviewProvider {
     static var previews: some View {
         MedicineScheduleView()
-    }
-}
-struct RoundedCornerMask: Shape {
-    var cornerRadius: CGFloat
-    var corners: UIRectCorner
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect,
-                                byRoundingCorners: corners,
-                                cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
-        
-        return Path(path.cgPath)
     }
 }
