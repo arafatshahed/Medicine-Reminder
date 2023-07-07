@@ -9,49 +9,46 @@ import SwiftUI
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject private var medicineScheduleVM: MedicineScheduleViewModel
 
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.medicineStartDate, ascending: true)],
-        animation: .default)
-    private var medicines: FetchedResults<Medicine>
+        predicate: NSPredicate(format: "morningMedicineCount != %d", 0),
+        animation: .default) private var morningMedicines: FetchedResults<Medicine>
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.medicineStartDate, ascending: true)],
+        predicate: NSPredicate(format: "noonMedicineCount != %d", 0),
+        animation: .default) private var noonMedicines: FetchedResults<Medicine>
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.medicineStartDate, ascending: true)],
+        predicate: NSPredicate(format: "nightMedicineCount != %d", 0),
+        animation: .default) private var nightMedicines: FetchedResults<Medicine>
+    
     @State private var showScannerView = false
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(medicines) { medicine in
-                    Text("\(medicine.medicineStartDate ?? Date(), formatter: itemFormatter)")
-                        .font(.title)
-                        .deleteDisabled(true)
-    
-                    NavigationLink {
-                        Text("Name of medicine is :  \(medicine.medicineName!)")
-                        Text("Time added: \(medicine.medicineStartDate ?? Date())")
-                        Text("Consume till: \(medicine.medicineEndDate ?? Date())")
-                        Text(medicine.beforeMeal ? "Before meal" : "After meal")
-                    } label: {
-                        Rectangle()
-                            .frame(height: 80)
-                            .cornerRadius(10)
-                            .foregroundColor(Color("itemBG"))
-                            .overlay(content: {
-                                HStack{
-                                    Image(systemName: "pills")
-                                        .font(.system(size: 30))
-                                        .padding(20)
-                                    Rectangle()
-                                        .frame(width: 3, height: 50)
-                                        .padding(.trailing)
-                                    VStack(alignment: .leading){
-                                        Text(medicine.medicineName!)
-                                            .font(.title2)
-                                        Text("Take \(medicine.morningMedicineCount + medicine.noonMedicineCount + medicine.nightMedicineCount) Pill(s)")
-                                    }
-                                    Spacer()
-                                }
-                            })
-                    }
-                    .listRowSeparator(.hidden)
+                Text("\(medicineScheduleVM.morningMedicineTakingTime, formatter: itemFormatter)") //Your Morning Medicines at
+                    .font(.title)
+                    .opacity(morningMedicines.count == 0 ? 0: 1)
+                ForEach(morningMedicines) { medicine in
+                    MedicineCardView(medicine: medicine)
+                }
+                .onDelete(perform: deleteItems)
+                
+                Text("\(medicineScheduleVM.afternoonMedicineTakingTime , formatter: itemFormatter)") //Your Afternoon Medicines at
+                    .font(.title)
+                    .opacity(noonMedicines.count == 0 ? 0: 1)
+                ForEach(noonMedicines) { medicine in
+                    MedicineCardView(medicine: medicine)
+                }
+                .onDelete(perform: deleteItems)
+                Text("\(medicineScheduleVM.nightMedicineTakingTime , formatter: itemFormatter)") //Your Night Medicines at
+                    .font(.title)
+                    .opacity(nightMedicines.count == 0 ? 0: 1)
+                ForEach(nightMedicines) { medicine in
+                    MedicineCardView(medicine: medicine)
                 }
                 .onDelete(perform: deleteItems)
             }
@@ -78,7 +75,7 @@ struct HomeView: View {
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            offsets.map { medicines[$0] }.forEach(viewContext.delete)
+            offsets.map { morningMedicines[$0] }.forEach(viewContext.delete)
 
             do {
                 try viewContext.save()
@@ -117,6 +114,8 @@ private let itemFormatter: DateFormatter = {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
+        let viewModel = MedicineScheduleViewModel()
         HomeView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+            .environmentObject(viewModel)
     }
 }

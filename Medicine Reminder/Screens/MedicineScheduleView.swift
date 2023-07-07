@@ -8,10 +8,7 @@
 import SwiftUI
 
 struct MedicineScheduleView: View {
-    @State private var dose1: Date = Date()
-    @State var morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as? Date ?? Date()
-    @State var afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as? Date ?? Date()
-    @State var nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as? Date ?? Date()
+    @EnvironmentObject private var medicineScheduleVM: MedicineScheduleViewModel
     @State private var buttonWidth = UIScreen.main.bounds.width - 80
     var body: some View {
         
@@ -40,11 +37,11 @@ struct MedicineScheduleView: View {
                             .font(.title2)
                             .padding()
                         Spacer()
-                        DatePicker("", selection: $morningMedicineTakingTime, displayedComponents: .hourAndMinute)
+                        DatePicker("", selection: $medicineScheduleVM.morningMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
-                            .onChange(of: morningMedicineTakingTime){newDate in
-                                UserDefaults.standard.set(newDate, forKey: "morningMedicineTakingTime")
-                            }
+//                            .onChange(of: medicineScheduleVM.morningMedicineTakingTime){newDate in
+//                                UserDefaults.standard.set(newDate, forKey: "morningMedicineTakingTime")
+//                            }
                     }
                     .padding()
                     HStack{
@@ -52,11 +49,11 @@ struct MedicineScheduleView: View {
                             .font(.title2)
                             .padding()
                         Spacer()
-                        DatePicker("", selection: $afternoonMedicineTakingTime, displayedComponents: .hourAndMinute)
+                        DatePicker("", selection: $medicineScheduleVM.afternoonMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
-                            .onChange(of: afternoonMedicineTakingTime){newDate in
-                                UserDefaults.standard.set(newDate, forKey: "afternoonMedicineTakingTime")
-                            }
+//                            .onChange(of: afternoonMedicineTakingTime){newDate in
+//                                UserDefaults.standard.set(newDate, forKey: "afternoonMedicineTakingTime")
+//                            }
                     }
                     .padding()
                     HStack{
@@ -64,11 +61,11 @@ struct MedicineScheduleView: View {
                             .font(.title2)
                             .padding()
                         Spacer()
-                        DatePicker("", selection: $nightMedicineTakingTime, displayedComponents: .hourAndMinute)
+                        DatePicker("", selection: $medicineScheduleVM.nightMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
-                            .onChange(of: nightMedicineTakingTime){newDate in
-                                UserDefaults.standard.set(newDate, forKey: "nightMedicineTakingTime")
-                            }
+//                            .onChange(of: nightMedicineTakingTime){newDate in
+//                                UserDefaults.standard.set(newDate, forKey: "nightMedicineTakingTime")
+//                            }
                     }
                     .padding()
                     
@@ -83,6 +80,8 @@ struct MedicineScheduleView: View {
 
 struct MedicineScheduleView_Previews: PreviewProvider {
     static var previews: some View {
+        let viewModel = MedicineScheduleViewModel()
         MedicineScheduleView()
+            .environmentObject(viewModel)
     }
 }

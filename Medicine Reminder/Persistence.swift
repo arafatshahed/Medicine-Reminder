@@ -13,17 +13,17 @@ struct PersistenceController {
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
+        for i in 0..<10 {
             let med = Medicine(context: viewContext)
             med.medicineStartDate = Date()
-            med.medicineName = "Medicine"
+            med.medicineName = "Medicine \(i)"
             var dateComponents = DateComponents()
-            dateComponents.day = 7
+            dateComponents.day = Int.random(in: 5...15)
             let futureDate = Calendar.current.date(byAdding: dateComponents, to: med.medicineStartDate!)
             med.medicineEndDate = futureDate
-            med.morningMedicineCount = 1
-            med.noonMedicineCount = 1
-            med.nightMedicineCount = 1
+            med.morningMedicineCount = Int16.random(in: 0...1)
+            med.noonMedicineCount = Int16.random(in: 0...1)
+            med.nightMedicineCount = Int16.random(in: 0...1)
             med.beforeMeal = false
         }
         do {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TabViews: View {
+    @StateObject private var medicineScheduleVM = MedicineScheduleViewModel()
     var body: some View {
         TabView {
             HomeView()
@@ -15,6 +16,7 @@ struct TabViews: View {
                     Image(systemName: "homekit")
                     Text("Home")
                 }
+                .environmentObject(medicineScheduleVM)
             PrescriptionScanView()
                 .tabItem {
                     Image(systemName: "scanner.fill")
@@ -30,6 +32,7 @@ struct TabViews: View {
                     Image(systemName: "clock.fill")
                     Text("Medicine Schedule")
                 }
+                .environmentObject(medicineScheduleVM)
         }
         .accentColor(Color("tealBlue"))
     }
