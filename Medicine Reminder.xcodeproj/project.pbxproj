@@ -14,6 +14,11 @@
 		89A280452A56AAB500FCA091 /* PrescriptionScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A280442A56AAB500FCA091 /* PrescriptionScanView.swift */; };
 		89A280472A581C6100FCA091 /* MedicineCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A280462A581C6100FCA091 /* MedicineCardView.swift */; };
 		89A2804A2A5898AC00FCA091 /* MedicineScheduleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A280492A5898AC00FCA091 /* MedicineScheduleViewModel.swift */; };
+		89A2804F2A59397300FCA091 /* MedicinesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A2804E2A59397300FCA091 /* MedicinesView.swift */; };
+		89A280512A5970EC00FCA091 /* MedicineDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A280502A5970EC00FCA091 /* MedicineDetailsView.swift */; };
+		89A280562A59A83600FCA091 /* View + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A280552A59A83600FCA091 /* View + Extension.swift */; };
+		89A2805A2A5A903B00FCA091 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 89A280592A5A903B00FCA091 /* AlertToast */; };
+		89A2805C2A5AD48400FCA091 /* AppEnums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89A2805B2A5AD48400FCA091 /* AppEnums.swift */; };
 		89CEE4062A31DD840046E2B1 /* Medicine_ReminderApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE4052A31DD840046E2B1 /* Medicine_ReminderApp.swift */; };
 		89CEE4082A31DD840046E2B1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CEE4072A31DD840046E2B1 /* ContentView.swift */; };
 		89CEE40A2A31DD850046E2B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89CEE4092A31DD850046E2B1 /* Assets.xcassets */; };
@@ -33,6 +38,10 @@
 		89A280442A56AAB500FCA091 /* PrescriptionScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrescriptionScanView.swift; sourceTree = "<group>"; };
 		89A280462A581C6100FCA091 /* MedicineCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineCardView.swift; sourceTree = "<group>"; };
 		89A280492A5898AC00FCA091 /* MedicineScheduleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineScheduleViewModel.swift; sourceTree = "<group>"; };
+		89A2804E2A59397300FCA091 /* MedicinesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicinesView.swift; sourceTree = "<group>"; };
+		89A280502A5970EC00FCA091 /* MedicineDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicineDetailsView.swift; sourceTree = "<group>"; };
+		89A280552A59A83600FCA091 /* View + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View + Extension.swift"; sourceTree = "<group>"; };
+		89A2805B2A5AD48400FCA091 /* AppEnums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnums.swift; sourceTree = "<group>"; };
 		89CEE4022A31DD840046E2B1 /* Medicine Reminder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Medicine Reminder.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		89CEE4052A31DD840046E2B1 /* Medicine_ReminderApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Medicine_ReminderApp.swift; sourceTree = "<group>"; };
 		89CEE4072A31DD840046E2B1 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89A2805A2A5A903B00FCA091 /* AlertToast in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +83,23 @@
 				89A280492A5898AC00FCA091 /* MedicineScheduleViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		89A2804B2A59315500FCA091 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				89A280422A567E8200FCA091 /* MedicineParser.swift */,
+				89CEE40E2A31DD850046E2B1 /* Persistence.swift */,
+			);
+			path = Utility;
+			sourceTree = "<group>";
+		};
+		89A280572A59A84200FCA091 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				89A280552A59A83600FCA091 /* View + Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		89CEE3F92A31DD840046E2B1 = {
@@ -99,12 +126,13 @@
 				89CEE41F2A3329840046E2B1 /* Views */,
 				89CEE41E2A3329760046E2B1 /* Screens */,
 				89A280482A58984A00FCA091 /* ViewModel */,
-				89CEE40E2A31DD850046E2B1 /* Persistence.swift */,
+				89A280572A59A84200FCA091 /* Extensions */,
 				89CEE4092A31DD850046E2B1 /* Assets.xcassets */,
-				89A280422A567E8200FCA091 /* MedicineParser.swift */,
+				89A2804B2A59315500FCA091 /* Utility */,
 				89CEE4132A31DD850046E2B1 /* Info.plist */,
 				89CEE4102A31DD850046E2B1 /* Medicine_Reminder.xcdatamodeld */,
 				89CEE40B2A31DD850046E2B1 /* Preview Content */,
+				89A2805B2A5AD48400FCA091 /* AppEnums.swift */,
 			);
 			path = "Medicine Reminder";
 			sourceTree = "<group>";
@@ -121,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				89CEE4222A3335800046E2B1 /* HomeView.swift */,
+				89A2804E2A59397300FCA091 /* MedicinesView.swift */,
 				8945FAD42A39864C006D8C50 /* MedicineScheduleView.swift */,
 				89CEE41C2A31F11C0046E2B1 /* OnboardingView.swift */,
 			);
@@ -135,6 +164,7 @@
 				89CEE4202A332AAD0046E2B1 /* TabViews.swift */,
 				89A280442A56AAB500FCA091 /* PrescriptionScanView.swift */,
 				89A280462A581C6100FCA091 /* MedicineCardView.swift */,
+				89A280502A5970EC00FCA091 /* MedicineDetailsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -155,6 +185,9 @@
 			dependencies = (
 			);
 			name = "Medicine Reminder";
+			packageProductDependencies = (
+				89A280592A5A903B00FCA091 /* AlertToast */,
+			);
 			productName = "Medicine Reminder";
 			productReference = 89CEE4022A31DD840046E2B1 /* Medicine Reminder.app */;
 			productType = "com.apple.product-type.application";
@@ -183,6 +216,9 @@
 				Base,
 			);
 			mainGroup = 89CEE3F92A31DD840046E2B1;
+			packageReferences = (
+				89A280582A5A903B00FCA091 /* XCRemoteSwiftPackageReference "AlertToast" */,
+			);
 			productRefGroup = 89CEE4032A31DD840046E2B1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -212,15 +248,19 @@
 				8945FAD02A385E9A006D8C50 /* ScannerView.swift in Sources */,
 				89A2804A2A5898AC00FCA091 /* MedicineScheduleViewModel.swift in Sources */,
 				89CEE40F2A31DD850046E2B1 /* Persistence.swift in Sources */,
+				89A280512A5970EC00FCA091 /* MedicineDetailsView.swift in Sources */,
+				89A2805C2A5AD48400FCA091 /* AppEnums.swift in Sources */,
 				89A280432A567E8200FCA091 /* MedicineParser.swift in Sources */,
 				89CEE4232A3335800046E2B1 /* HomeView.swift in Sources */,
 				89CEE4122A31DD850046E2B1 /* Medicine_Reminder.xcdatamodeld in Sources */,
+				89A2804F2A59397300FCA091 /* MedicinesView.swift in Sources */,
 				89CEE4082A31DD840046E2B1 /* ContentView.swift in Sources */,
 				89A280472A581C6100FCA091 /* MedicineCardView.swift in Sources */,
 				8945FACF2A385E9A006D8C50 /* TextRecognizer.swift in Sources */,
 				89A280452A56AAB500FCA091 /* PrescriptionScanView.swift in Sources */,
 				89CEE41D2A31F11C0046E2B1 /* OnboardingView.swift in Sources */,
 				89CEE4212A332AAD0046E2B1 /* TabViews.swift in Sources */,
+				89A280562A59A83600FCA091 /* View + Extension.swift in Sources */,
 				89CEE4062A31DD840046E2B1 /* Medicine_ReminderApp.swift in Sources */,
 				8945FAD52A39864C006D8C50 /* MedicineScheduleView.swift in Sources */,
 			);
@@ -437,6 +477,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		89A280582A5A903B00FCA091 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		89A280592A5A903B00FCA091 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 89A280582A5A903B00FCA091 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		89CEE4102A31DD850046E2B1 /* Medicine_Reminder.xcdatamodeld */ = {

@@ -9,13 +9,12 @@ import SwiftUI
 import CoreData
 
 struct MedicineCardView: View {
-    @State var medicine: Medicine
+    @ObservedObject var medicine: Medicine
+    @State var isDeleteDisabled: Bool
+    @State var medicinesTurn: MedicineTurn?
     var body: some View {
         NavigationLink {
-            Text("Name of medicine is :  \(medicine.medicineName!)")
-            Text("Time added: \(medicine.medicineStartDate ?? Date())")
-            Text("Consume till: \(medicine.medicineEndDate ?? Date())")
-            Text(medicine.beforeMeal ? "Before meal" : "After meal")
+            MedicineDetailsView(medicine: medicine)
         } label: {
             Rectangle()
                 .frame(height: 80)
@@ -30,15 +29,27 @@ struct MedicineCardView: View {
                             .frame(width: 3, height: 50)
                             .padding(.trailing)
                         VStack(alignment: .leading){
-                            Text(medicine.medicineName!)
-                                .font(.title2)
-                            Text("Take \(medicine.morningMedicineCount + medicine.noonMedicineCount + medicine.nightMedicineCount) Pill(s)")
+                            if let medName = medicine.medicineName{
+                                Text(medName)
+                                    .font(.title2)
+                            }
+                            
+                            if medicinesTurn == .morning{
+                                Text("Take \(medicine.morningMedicineCount) Pill(s)")
+                            }else if medicinesTurn == .afternoon{
+                                Text("Take \(medicine.noonMedicineCount) Pill(s)")
+                            } else if medicinesTurn == .night{
+                                Text("Take \(medicine.nightMedicineCount) Pill(s)")
+                            } else{
+                                Text("Take \(medicine.morningMedicineCount + medicine.noonMedicineCount + medicine.nightMedicineCount) Pill(s) daily")
+                            }
+                            
                         }
                         Spacer()
                     }
                 })
         }
-        .deleteDisabled(true)
+        .deleteDisabled(isDeleteDisabled)
         .listRowSeparator(.hidden)
     }
 }
@@ -50,7 +61,7 @@ struct MedicineCardView_Previews: PreviewProvider {
         fetchRequest.fetchLimit = 1
 
         if let medicine = try? context.fetch(fetchRequest).first {
-            return AnyView(MedicineCardView(medicine: medicine))
+            return AnyView(MedicineCardView(medicine: medicine, isDeleteDisabled: false))
         } else {
             // Handle the case when no medicine is available
             return AnyView(EmptyView())

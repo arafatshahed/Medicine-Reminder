@@ -16,13 +16,12 @@ struct TabViews: View {
                     Image(systemName: "homekit")
                     Text("Home")
                 }
-                .environmentObject(medicineScheduleVM)
             PrescriptionScanView()
                 .tabItem {
                     Image(systemName: "scanner.fill")
                     Text("Scan Prescription")
                 }
-            Text("Medications")
+            MedicinesView()
                 .tabItem {
                     Image(systemName: "pills.fill")
                     Text("Medications")
@@ -32,9 +31,9 @@ struct TabViews: View {
                     Image(systemName: "clock.fill")
                     Text("Medicine Schedule")
                 }
-                .environmentObject(medicineScheduleVM)
         }
         .accentColor(Color("tealBlue"))
+        .environmentObject(medicineScheduleVM)
     }
 }
 

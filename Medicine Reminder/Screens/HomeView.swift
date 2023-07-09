@@ -29,29 +29,30 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             List {
-                Text("\(medicineScheduleVM.morningMedicineTakingTime, formatter: itemFormatter)") //Your Morning Medicines at
+                Text("\(medicineScheduleVM.morningMedicineTakingTime, formatter: medicineScheduleVM.itemFormatter)") //Your Morning Medicines at
                     .font(.title)
                     .opacity(morningMedicines.count == 0 ? 0: 1)
                 ForEach(morningMedicines) { medicine in
-                    MedicineCardView(medicine: medicine)
+                    MedicineCardView(medicine: medicine, isDeleteDisabled: true, medicinesTurn: .morning)
                 }
                 .onDelete(perform: deleteItems)
                 
-                Text("\(medicineScheduleVM.afternoonMedicineTakingTime , formatter: itemFormatter)") //Your Afternoon Medicines at
+                Text("\(medicineScheduleVM.afternoonMedicineTakingTime , formatter: medicineScheduleVM.itemFormatter)") //Your Afternoon Medicines at
                     .font(.title)
                     .opacity(noonMedicines.count == 0 ? 0: 1)
                 ForEach(noonMedicines) { medicine in
-                    MedicineCardView(medicine: medicine)
+                    MedicineCardView(medicine: medicine, isDeleteDisabled: true, medicinesTurn: .afternoon)
                 }
                 .onDelete(perform: deleteItems)
-                Text("\(medicineScheduleVM.nightMedicineTakingTime , formatter: itemFormatter)") //Your Night Medicines at
+                Text("\(medicineScheduleVM.nightMedicineTakingTime , formatter: medicineScheduleVM.itemFormatter)") //Your Night Medicines at
                     .font(.title)
                     .opacity(nightMedicines.count == 0 ? 0: 1)
                 ForEach(nightMedicines) { medicine in
-                    MedicineCardView(medicine: medicine)
+                    MedicineCardView(medicine: medicine, isDeleteDisabled: true, medicinesTurn: .night)
                 }
                 .onDelete(perform: deleteItems)
             }
+            .navigationTitle("Medicine Schedule")
             
             .listStyle(PlainListStyle())
             .toolbar {
@@ -70,6 +71,7 @@ struct HomeView: View {
                 }
             }
         }
+        .opacity((morningMedicines.count + noonMedicines.count + nightMedicines.count) == 0 ? 0: 1)
 
     }
 
@@ -105,12 +107,6 @@ struct HomeView: View {
         })
     }
 }
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .none
-    formatter.timeStyle = .short
-    return formatter
-}()
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {

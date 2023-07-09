@@ -39,9 +39,6 @@ struct MedicineScheduleView: View {
                         Spacer()
                         DatePicker("", selection: $medicineScheduleVM.morningMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
-//                            .onChange(of: medicineScheduleVM.morningMedicineTakingTime){newDate in
-//                                UserDefaults.standard.set(newDate, forKey: "morningMedicineTakingTime")
-//                            }
                     }
                     .padding()
                     HStack{
@@ -51,9 +48,6 @@ struct MedicineScheduleView: View {
                         Spacer()
                         DatePicker("", selection: $medicineScheduleVM.afternoonMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
-//                            .onChange(of: afternoonMedicineTakingTime){newDate in
-//                                UserDefaults.standard.set(newDate, forKey: "afternoonMedicineTakingTime")
-//                            }
                     }
                     .padding()
                     HStack{
@@ -63,9 +57,6 @@ struct MedicineScheduleView: View {
                         Spacer()
                         DatePicker("", selection: $medicineScheduleVM.nightMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
-//                            .onChange(of: nightMedicineTakingTime){newDate in
-//                                UserDefaults.standard.set(newDate, forKey: "nightMedicineTakingTime")
-//                            }
                     }
                     .padding()
                     
