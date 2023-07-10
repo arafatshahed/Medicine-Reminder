@@ -20,23 +20,54 @@ class MedicineParser{
         var medicineArray = [Medicine]()
         var medicineData = data.components(separatedBy: "\n")
         
-        medicineData.removeFirst(4)
-        
         for i in 0..<medicineData.count{
-            if i%4 == 0{
+            let data = medicineData[i].replacingOccurrences(of: " ", with: "")
+            if data == "1"{
+                medicineData.removeFirst(i)
+                break
+            
+            } 
+        }
+        // remove last indexes if it is string of number
+        for i in (0..<medicineData.count).reversed(){
+            let data = medicineData[i].replacingOccurrences(of: " ", with: "")
+            if data.range(of: "[^0-9]", options: .regularExpression) == nil{
+                medicineData.removeLast()
+            }
+            else{
+                break
+            }
+           
+        }
+
+
+        for i in 0..<medicineData.count{
+    
+            if i%5 == 0 && i+4 < medicineData.count {
                 let medicine = Medicine(context: viewContext)
-                medicine.medicineName = medicineData[i]
-                let routine = medicineData[i+1].replacingOccurrences(of: " ", with: "")
+                medicine.medicineName = medicineData[i+1]
+                let routine = medicineData[i+2].replacingOccurrences(of: " ", with: "")
                 let routineData = routine.components(separatedBy: "+")
-                medicine.morningMedicineCount = Int16(routineData[0]) ?? 0
-                medicine.noonMedicineCount = Int16(routineData[1]) ?? 0
-                medicine.nightMedicineCount = Int16(routineData[2]) ?? 0
-                var medicineEndDate = medicineData[i+2]
+                if(routineData.count == 3){
+                    medicine.morningMedicineCount = Int16(routineData[0]) ?? 0
+                    medicine.noonMedicineCount = Int16(routineData[1]) ?? 0
+                    medicine.nightMedicineCount = Int16(routineData[2]) ?? 0
+                }
+                else if(routineData.count == 2){
+                    medicine.morningMedicineCount = Int16(routineData[0]) ?? 0
+                    medicine.noonMedicineCount = 0
+                    medicine.nightMedicineCount = Int16(routineData[1]) ?? 0
+                } else{
+                    medicine.morningMedicineCount = 0
+                    medicine.noonMedicineCount = 0
+                    medicine.nightMedicineCount = 0
+                }
+                var medicineEndDate = medicineData[i+3]
                 let convertedDay = convertToDays(dateString: medicineEndDate)
                 medicine.medicineStartDate = Date()
                 medicineEndDate = medicineEndDate.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
                 medicine.medicineEndDate = Date().addingTimeInterval(TimeInterval(60*60*24*(Int(convertedDay) )))
-                medicine.beforeMeal = medicineData[i+3] == "Yes" ? true : false
+                medicine.beforeMeal = medicineData[i+4] == "Yes" ? true : false
                 medicineArray.append(medicine)
             }
         }
