@@ -1,4 +1,4 @@
-//
+
 //  NotificationService.swift
 //  Medicine Reminder
 //
@@ -35,7 +35,9 @@ class NotificationService{
         let morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as! Date
         let nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as! Date
         let afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as! Date
-  
+        //with default value
+        let beforeMealTime = (UserDefaults.standard.object(forKey: "beforeMealTime") as? Int ?? 30) * -1
+        
         let fetchRequest : NSFetchRequest<Medicine> = Medicine.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "medicineEndDate", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
@@ -44,50 +46,92 @@ class NotificationService{
             guard let endDate = (medicines.last?.medicineEndDate) else { return }
             var currentDate = Date()
             while  currentDate <= endDate{
-                var morningMedicineList = [Medicine]()
-                var afternoonMedicineList = [Medicine]()
-                var nightMedicineList = [Medicine]()
+                var morningBeforeMealMedicineList = [Medicine]()
+                var afternoonBeforeMealMedicineList = [Medicine]()
+                var nightBeforeMealMedicineList = [Medicine]()
+                var morningAfterMealMedicineList = [Medicine]()
+                var afternoonAfterMealMedicineList = [Medicine]()
+                var nightAfterMealMedicineList = [Medicine]()
                 for medicine in medicines {
                     if medicine.medicineStartDate! <= currentDate && medicine.medicineEndDate! >= currentDate{
-                        if medicine.morningMedicineCount > 0{
-                            morningMedicineList.append(medicine)
+                        if medicine.morningMedicineCount > 0 && medicine.beforeMeal{
+                            morningBeforeMealMedicineList.append(medicine)
                         }
-                        if medicine.noonMedicineCount > 0{
-                            afternoonMedicineList.append(medicine)
+                        if medicine.noonMedicineCount > 0 && medicine.beforeMeal{
+                            afternoonBeforeMealMedicineList.append(medicine)
                         }
-                        if medicine.nightMedicineCount > 0{
-                            nightMedicineList.append(medicine)
+                        if medicine.nightMedicineCount > 0 && medicine.beforeMeal{
+                            nightBeforeMealMedicineList.append(medicine)
+                        }
+                        if medicine.morningMedicineCount > 0 && !medicine.beforeMeal{
+                            morningAfterMealMedicineList.append(medicine)
+                        }
+                        if medicine.noonMedicineCount > 0 && !medicine.beforeMeal{
+                            afternoonAfterMealMedicineList.append(medicine)
+                        }
+                        if medicine.nightMedicineCount > 0 && !medicine.beforeMeal{
+                            nightAfterMealMedicineList.append(medicine)
                         }
                     }
                 }
-                    if morningMedicineList.count > 0{
-                        var medicineName = ""
-                        for medicine in morningMedicineList{
-                            medicineName += medicine.medicineName! + ", "
-                        }
-                        medicineName.removeLast(2)
-                        let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: morningMedicineTakingTime)
-                        scheduleNotification(title: "Morning Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
-                        
+                if morningBeforeMealMedicineList.count > 0{
+                    var medicineName = ""
+                    for medicine in morningBeforeMealMedicineList{
+                        medicineName += medicine.medicineName! + ", "
                     }
-                    if afternoonMedicineList.count > 0{
-                        var medicineName = ""
-                        for medicine in afternoonMedicineList{
-                            medicineName += medicine.medicineName! + ", "
-                        }
-                        medicineName.removeLast(2)
-                        let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: afternoonMedicineTakingTime)
-                        scheduleNotification(title: "Afternoon Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                    medicineName.removeLast(2)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: morningMedicineTakingTime, beforeMeal: true, beforeMealTime: beforeMealTime)
+                    scheduleNotification(title: "Morning Medicine", subtitle: "Time to take before meal medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                }
+                
+                if morningAfterMealMedicineList.count > 0{
+                    var medicineName = ""
+                    for medicine in morningAfterMealMedicineList{
+                        medicineName += medicine.medicineName! + ", "
                     }
-                    if nightMedicineList.count > 0{
-                        var medicineName = ""
-                        for medicine in nightMedicineList{
-                            medicineName += medicine.medicineName! + ", "
-                        }
-                        medicineName.removeLast(2)
-                        let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: nightMedicineTakingTime)
-                        scheduleNotification(title: "Night Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                    medicineName.removeLast(2)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: morningMedicineTakingTime, beforeMeal: false, beforeMealTime: beforeMealTime)
+                    scheduleNotification(title: "Morning Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                    
+                }
+                if afternoonBeforeMealMedicineList.count > 0{
+                    var medicineName = ""
+                    for medicine in afternoonBeforeMealMedicineList{
+                        medicineName += medicine.medicineName! + ", "
                     }
+                    medicineName.removeLast(2)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: afternoonMedicineTakingTime, beforeMeal: true, beforeMealTime: beforeMealTime)
+                    scheduleNotification(title: "Afternoon Medicine", subtitle: "Time to take before meal medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                }
+                
+                if afternoonAfterMealMedicineList.count > 0{
+                    var medicineName = ""
+                    for medicine in afternoonAfterMealMedicineList{
+                        medicineName += medicine.medicineName! + ", "
+                    }
+                    medicineName.removeLast(2)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: afternoonMedicineTakingTime, beforeMeal: false, beforeMealTime: beforeMealTime)
+                    scheduleNotification(title: "Afternoon Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                }
+                
+                if nightBeforeMealMedicineList.count > 0{
+                    var medicineName = ""
+                    for medicine in nightBeforeMealMedicineList{
+                        medicineName += medicine.medicineName! + ", "
+                    }
+                    medicineName.removeLast(2)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: nightMedicineTakingTime, beforeMeal: true, beforeMealTime: beforeMealTime)
+                    scheduleNotification(title: "Night Medicine", subtitle: "Time to take before meal medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                }
+                if nightAfterMealMedicineList.count > 0{
+                    var medicineName = ""
+                    for medicine in nightAfterMealMedicineList{
+                        medicineName += medicine.medicineName! + ", "
+                    }
+                    medicineName.removeLast(2)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: nightMedicineTakingTime, beforeMeal: false, beforeMealTime: beforeMealTime)
+                    scheduleNotification(title: "Night Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
+                }
                 currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!
             }
             
@@ -98,9 +142,9 @@ class NotificationService{
     }
     
     func scheduleNotification(title: String, subtitle: String, body: String, badge: Int?, sound: UNNotificationSound?, date: Date){
-      //  print("time---\(date)")
+        //  print("time---\(date)")
         count += 1
-        if count>10{
+        if count>20{
             return
         }
         let content = UNMutableNotificationContent()
@@ -125,13 +169,12 @@ class NotificationService{
     func retrievePendingNotifications() async -> [UNNotificationRequest]{
         let notificationRequests = await notificationCenter.pendingNotificationRequests()
         for n in notificationRequests{
-           // print(n.content.title)
-            //print(n.content.body)
-            //print time
+            print(n.content.title)
+            print(n.content.body)
             let trigger = n.trigger as! UNCalendarNotificationTrigger
             let date = trigger.nextTriggerDate()
-           // print(date)
-           // print()
+            print(date)
+            print()
             
         }
         return notificationRequests
@@ -146,33 +189,36 @@ class NotificationService{
     }
     
     
-    func getMedicineTakingDateTime(currentDate : Date, medicineTakingTime : Date) -> Date{
+    func getMedicineTakingDateTime(currentDate : Date, medicineTakingTime : Date, beforeMeal : Bool, beforeMealTime: Int) -> Date{
         let calendar = Calendar.current
         let hour = calendar.component(.hour, from: medicineTakingTime)
         let minute = calendar.component(.minute, from: medicineTakingTime)
         let second = calendar.component(.second, from: medicineTakingTime)
         let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
-
-
+        
+        
         var updatedComponents = DateComponents()
         updatedComponents.hour = hour
         updatedComponents.minute = minute
         updatedComponents.second = second
-
+        
         var updatedDate = calendar.date(bySettingHour: updatedComponents.hour ?? 0,
                                         minute: updatedComponents.minute ?? 0,
                                         second: updatedComponents.second ?? 0,
                                         of: calendar.date(from: components) ?? Date()) ?? Date()
-
-//        updatedDate = convertToLocalTimeZone(date: updatedDate)
-//        print("currentDate -- \(currentDate)")
-//        print(("Taking Time -- \(medicineTakingTime)"))
-//        print("Updated Date-----\(updatedDate)")
+        if beforeMeal{
+            updatedDate = calendar.date(byAdding: .minute, value: beforeMealTime, to: updatedDate)!
+        }
+        
+        //        updatedDate = convertToLocalTimeZone(date: updatedDate)
+        //        print("currentDate -- \(currentDate)")
+        //        print(("Taking Time -- \(medicineTakingTime)"))
+        //        print("Updated Date-----\(updatedDate)")
         print()
-
+        
         return updatedDate
     }
-
+    
     func convertToLocalTimeZone(date: Date) -> Date {
         let timeZoneOffset = Double(TimeZone.current.secondsFromGMT(for: date))
         guard let localDate = Calendar.current.date(byAdding: .second, value: Int(timeZoneOffset), to: date) else {
