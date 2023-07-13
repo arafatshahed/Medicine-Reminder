@@ -26,7 +26,9 @@ struct MedicineDetailsView: View {
                     Image(systemName: "chevron.down")
                 }
                 .onTapGesture {
-                    showMedicineName.toggle()
+                    withAnimation(.easeInOut(duration: 0.2)){
+                        showMedicineName.toggle()
+                    }
                 }
                 if showMedicineName{
                     TextField("", text: Binding(

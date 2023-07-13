@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PrescriptionScanView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+//    @Environment(\.managedObjectContext) private var viewContext
     var body: some View {
         Text("PrescriptionScanView")
     }

@@ -33,7 +33,7 @@ struct MedicineScheduleView: View {
                 })
                 VStack(alignment: .center){
                     HStack{
-                        Text("Morning:")
+                        Text("First Dose :")
                             .font(.title2)
                             .padding()
                         Spacer()
@@ -42,7 +42,7 @@ struct MedicineScheduleView: View {
                     }
                     .padding()
                     HStack{
-                        Text("Afternoon:")
+                        Text("Second Dose :")
                             .font(.title2)
                             .padding()
                         Spacer()
@@ -51,7 +51,7 @@ struct MedicineScheduleView: View {
                     }
                     .padding()
                     HStack{
-                        Text("Night:")
+                        Text("Third Dose :")
                             .font(.title2)
                             .padding()
                         Spacer()

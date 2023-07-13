@@ -17,34 +17,34 @@ struct MedicineCardView: View {
             MedicineDetailsView(medicine: medicine)
         } label: {
             Rectangle()
-                .frame(height: 80)
+                .frame(height: 70)
                 .cornerRadius(10)
                 .foregroundColor(Color("itemBG"))
                 .overlay(content: {
                     HStack{
                         Image(systemName: "pills")
-                            .font(.system(size: 30))
-                            .padding(20)
+                            .font(.system(size: 28))
+                            .padding(.leading, 15)
                         Rectangle()
-                            .frame(width: 3, height: 50)
-                            .padding(.trailing)
-                        VStack(alignment: .leading){
+                            .frame(width: 3, height: 42)
+                            .padding(.horizontal, 12)
+                        VStack(alignment: .leading, spacing: 5){
                             if let medName = medicine.medicineName{
                                 Text(medName)
-                                    .font(.title2)
+                                    .font(.system(size: 21, weight: .semibold))
                             }
-                            
                             if medicinesTurn == .morning{
-                                Text("Take \(medicine.morningMedicineCount) Pill(s)")
+                                Text("Take \(medicine.morningMedicineCount) Pill(s) \(medicine.beforeMeal ? "" : "before meal")")
                             }else if medicinesTurn == .afternoon{
-                                Text("Take \(medicine.noonMedicineCount) Pill(s)")
+                                Text("Take \(medicine.noonMedicineCount) Pill(s) \(medicine.beforeMeal ? "" : "before meal")")
                             } else if medicinesTurn == .night{
-                                Text("Take \(medicine.nightMedicineCount) Pill(s)")
+                                Text("Take \(medicine.nightMedicineCount) Pill(s) \(medicine.beforeMeal ? "" : "before meal")")
                             } else{
                                 Text("Take \(medicine.morningMedicineCount + medicine.noonMedicineCount + medicine.nightMedicineCount) Pill(s) daily")
                             }
                             
                         }
+                        .font(.system(size: 15, weight: .light))
                         Spacer()
                     }
                 })
