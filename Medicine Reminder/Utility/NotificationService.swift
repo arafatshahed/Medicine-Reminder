@@ -31,7 +31,7 @@ class NotificationService{
     
     func setMedicineNotification(context: NSManagedObjectContext){
         removeAllPendingNotifications()
-        
+        count = 0
         let morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as! Date
         let nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as! Date
         let afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as! Date
@@ -172,7 +172,7 @@ class NotificationService{
             print(n.content.title)
             print(n.content.body)
             let trigger = n.trigger as! UNCalendarNotificationTrigger
-            let date = trigger.nextTriggerDate()
+            let date = convertToLocalTimeZone(date: trigger.nextTriggerDate()!)
             print(date)
             print()
             

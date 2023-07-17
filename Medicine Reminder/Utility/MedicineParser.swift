@@ -26,7 +26,7 @@ class MedicineParser{
                 medicineData.removeFirst(i)
                 break
             
-            } 
+            }
         }
         // remove last indexes if it is string of number
         for i in (0..<medicineData.count).reversed(){
@@ -67,7 +67,7 @@ class MedicineParser{
                 medicine.medicineStartDate = Date()
                 medicineEndDate = medicineEndDate.replacingOccurrences(of: "[^0-9]", with: "", options: .regularExpression)
                 medicine.medicineEndDate = Date().addingTimeInterval(TimeInterval(60*60*24*(Int(convertedDay) )))
-                medicine.beforeMeal = medicineData[i+4] == "Yes" ? true : false
+                medicine.beforeMeal = medicineData[i+4].lowercased() == "yes" ? true : false
                 medicineArray.append(medicine)
             }
         }
