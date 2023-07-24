@@ -43,6 +43,7 @@ struct ScannerView: UIViewControllerRepresentable {
         }
          
         func documentCameraViewControllerDidCancel(_ controller: VNDocumentCameraViewController) {
+            print("Document camera view controller cancelled")
             completionHandler(nil)
         }
          

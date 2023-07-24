@@ -36,7 +36,7 @@ class NotificationService{
         let nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as! Date
         let afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as! Date
         //with default value
-        let beforeMealTime = (UserDefaults.standard.object(forKey: "beforeMealTime") as? Int ?? 30) * -1
+        let delayBeforeMeal = (UserDefaults.standard.object(forKey: "delayBeforeMeal") as? Int ?? 30) * -1
         
         let fetchRequest : NSFetchRequest<Medicine> = Medicine.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "medicineEndDate", ascending: true)
@@ -80,7 +80,7 @@ class NotificationService{
                         medicineName += medicine.medicineName! + ", "
                     }
                     medicineName.removeLast(2)
-                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: morningMedicineTakingTime, beforeMeal: true, beforeMealTime: beforeMealTime)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: morningMedicineTakingTime, beforeMeal: true, beforeMealTime: delayBeforeMeal)
                     scheduleNotification(title: "Morning Medicine", subtitle: "Time to take before meal medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
                 }
                 
@@ -90,7 +90,7 @@ class NotificationService{
                         medicineName += medicine.medicineName! + ", "
                     }
                     medicineName.removeLast(2)
-                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: morningMedicineTakingTime, beforeMeal: false, beforeMealTime: beforeMealTime)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: morningMedicineTakingTime, beforeMeal: false, beforeMealTime: delayBeforeMeal)
                     scheduleNotification(title: "Morning Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
                     
                 }
@@ -100,7 +100,7 @@ class NotificationService{
                         medicineName += medicine.medicineName! + ", "
                     }
                     medicineName.removeLast(2)
-                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: afternoonMedicineTakingTime, beforeMeal: true, beforeMealTime: beforeMealTime)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: afternoonMedicineTakingTime, beforeMeal: true, beforeMealTime: delayBeforeMeal)
                     scheduleNotification(title: "Afternoon Medicine", subtitle: "Time to take before meal medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
                 }
                 
@@ -110,7 +110,7 @@ class NotificationService{
                         medicineName += medicine.medicineName! + ", "
                     }
                     medicineName.removeLast(2)
-                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: afternoonMedicineTakingTime, beforeMeal: false, beforeMealTime: beforeMealTime)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: afternoonMedicineTakingTime, beforeMeal: false, beforeMealTime: delayBeforeMeal)
                     scheduleNotification(title: "Afternoon Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
                 }
                 
@@ -120,7 +120,7 @@ class NotificationService{
                         medicineName += medicine.medicineName! + ", "
                     }
                     medicineName.removeLast(2)
-                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: nightMedicineTakingTime, beforeMeal: true, beforeMealTime: beforeMealTime)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: nightMedicineTakingTime, beforeMeal: true, beforeMealTime: delayBeforeMeal)
                     scheduleNotification(title: "Night Medicine", subtitle: "Time to take before meal medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
                 }
                 if nightAfterMealMedicineList.count > 0{
@@ -129,7 +129,7 @@ class NotificationService{
                         medicineName += medicine.medicineName! + ", "
                     }
                     medicineName.removeLast(2)
-                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: nightMedicineTakingTime, beforeMeal: false, beforeMealTime: beforeMealTime)
+                    let medicineTakingTime = getMedicineTakingDateTime(currentDate: currentDate, medicineTakingTime: nightMedicineTakingTime, beforeMeal: false, beforeMealTime: delayBeforeMeal)
                     scheduleNotification(title: "Night Medicine", subtitle: "Time to take medicine", body: "Take \(medicineName)", badge: 1, sound: .default, date: medicineTakingTime)
                 }
                 currentDate = Calendar.current.date(byAdding: .day, value: 1, to: currentDate)!

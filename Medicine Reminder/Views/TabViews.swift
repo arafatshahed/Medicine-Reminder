@@ -16,11 +16,6 @@ struct TabViews: View {
                     Image(systemName: "homekit")
                     Text("Home")
                 }
-            PrescriptionScanView()
-                .tabItem {
-                    Image(systemName: "scanner.fill")
-                    Text("Scan Prescription")
-                }
             MedicinesView()
                 .tabItem {
                     Image(systemName: "pills.fill")

@@ -33,11 +33,18 @@ class MedicineScheduleViewModel: ObservableObject {
             UserDefaults.standard.set(nightMedicineTakingTime, forKey: "nightMedicineTakingTime")
         }
     }
+    
+    @Published var delayBeforeMeal: Int {
+        didSet {
+            UserDefaults.standard.set(delayBeforeMeal, forKey: "delayBeforeMeal")
+        }
+    }
 
     init() {
         morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as? Date ?? MedicineScheduleViewModel.generateDefaultDate(hour: 8, minute: 0, second: 0)
         afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as? Date ?? MedicineScheduleViewModel.generateDefaultDate(hour: 13, minute: 0, second: 0)
         nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as? Date ?? MedicineScheduleViewModel.generateDefaultDate(hour: 21, minute: 0, second: 0)
+        delayBeforeMeal = 30
     }
     static func generateDefaultDate(hour: Int, minute: Int, second: Int)->Date{
         let calendar = Calendar.current

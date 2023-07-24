@@ -49,6 +49,7 @@ struct HomeView: View {
             .navigationTitle("Medicine Schedule")
             .onAppear(){
                 calculateShecduleSerial()
+                NotificationService.shared.requestAuthorization()
             }
             
             .listStyle(PlainListStyle())
@@ -57,7 +58,7 @@ struct HomeView: View {
                     Button(action: {
                         showScannerView = true
                     }) {
-                        Label("Add Item", systemImage: "plus")
+                        Label("Add Item", systemImage: "doc.viewfinder")
                     }
                     .sheet(isPresented: $showScannerView, content: {
                         self.makeScannerView()
@@ -75,6 +76,9 @@ struct HomeView: View {
                 let meds = MedicineParser.shared.convertToMedicineArray(data: outputText, viewContext: viewContext)
                 do {
                     try viewContext.save()
+                    Task{
+                        await NotificationService.shared.setMedicineNotification(context: viewContext)
+                    }
                 } catch {
                     // Replace this implementation with code to handle the error appropriately.
                     // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.

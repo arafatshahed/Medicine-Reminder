@@ -106,6 +106,10 @@ struct MedicineDetailsView: View {
             Button(action: {
                 do {
                     try viewContext.save()
+                    Task{
+                        NotificationService.shared.setMedicineNotification(context: viewContext)
+                    }
+                    
                     self.showToast.toggle()
                 } catch {
                     // Replace this implementation with code to handle the error appropriately.
@@ -121,7 +125,7 @@ struct MedicineDetailsView: View {
             .buttonStyle(.borderless)
             .background(Color("tealBlue"), alignment: .center)
             .cornerRadius(25)
-                                .padding(.bottom, 20)
+            .padding(.bottom, 20)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal, 20)
