@@ -48,7 +48,7 @@ struct HomeView: View {
             }
             .navigationTitle("Medicine Schedule")
             .onAppear(){
-                calculateShecduleSerial()
+                medicineTurns =  medicineScheduleVM.calculateShecduleSerial()
                 NotificationService.shared.requestAuthorization()
             }
             
@@ -88,33 +88,6 @@ struct HomeView: View {
             }
             self.showScannerView = false
         })
-    }
-    func calculateShecduleSerial(){
-        var timeYetToArrive = [Schedule]()
-        var timeAlreadyPassed = [Schedule]()
-        if timehasPassed(date: medicineScheduleVM.morningMedicineTakingTime){
-            timeAlreadyPassed.append(Schedule(turn: .morning, hasPassed: true))
-        } else{
-            timeYetToArrive.append(Schedule(turn: .morning, hasPassed: false))
-        }
-        if timehasPassed(date: medicineScheduleVM.afternoonMedicineTakingTime){
-            timeAlreadyPassed.append(Schedule(turn: .afternoon, hasPassed: true))
-        } else{
-            timeYetToArrive.append(Schedule(turn: .afternoon, hasPassed: false))
-        }
-        if timehasPassed(date: medicineScheduleVM.nightMedicineTakingTime){
-            timeAlreadyPassed.append(Schedule(turn: .night, hasPassed: true))
-        } else{
-            timeYetToArrive.append(Schedule(turn: .night, hasPassed: false))
-        }
-        timeYetToArrive.append(contentsOf: timeAlreadyPassed)
-        medicineTurns = timeYetToArrive
-    }
-    
-    func timehasPassed(date: Date)->Bool{
-        let f = DateFormatter()
-        f.dateFormat = "HH:mm"
-        return f.date(from: f.string(from: date))! < f.date(from: f.string(from: Date()))!
     }
 }
     

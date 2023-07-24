@@ -43,7 +43,7 @@ struct MedicinesView: View {
             do {
                 try viewContext.save()
                 Task{
-                    await NotificationService.shared.setMedicineNotification(context: viewContext)
+                    NotificationService.shared.setMedicineNotification(context: viewContext)
                 }
             } catch {
                 // Replace this implementation with code to handle the error appropriately.
