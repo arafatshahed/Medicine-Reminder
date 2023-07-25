@@ -8,6 +8,15 @@
         "branch" : "master",
         "revision" : "638f38f9daf08e17b7caea22d2fcb9c0a418d1b6"
       }
+    },
+    {
+      "identity" : "lottie-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/airbnb/lottie-spm.git",
+      "state" : {
+        "revision" : "60ea4f82fba8b4cb21a75665a889e86ed4d81c6e",
+        "version" : "4.2.0"
+      }
     }
   ],
   "version" : 2

@@ -44,7 +44,8 @@ struct MedicineScheduleView: View {
                         DatePicker("", selection: $medicineScheduleVM.morningMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
                     }
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                     HStack{
                         Text("Second Dose :")
                             .font(.title2)
@@ -53,7 +54,8 @@ struct MedicineScheduleView: View {
                         DatePicker("", selection: $medicineScheduleVM.afternoonMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
                     }
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                     HStack{
                         Text("Third Dose :")
                             .font(.title2)
@@ -62,7 +64,8 @@ struct MedicineScheduleView: View {
                         DatePicker("", selection: $medicineScheduleVM.nightMedicineTakingTime, displayedComponents: .hourAndMinute)
                             .labelsHidden()
                     }
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                     HStack{
                         Text("Delay Before Meal :")
                             .font(.title2)
@@ -78,7 +81,8 @@ struct MedicineScheduleView: View {
                         }
                         .labelsHidden()
                     }
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, 8)
                     Spacer()
                     Button(action: {
                         Task{

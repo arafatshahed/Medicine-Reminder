@@ -50,6 +50,7 @@ struct HomeView: View {
             .onAppear(){
                 medicineTurns =  medicineScheduleVM.calculateShecduleSerial()
                 NotificationService.shared.requestAuthorization()
+                viewContext.rollback()
             }
             
             .listStyle(PlainListStyle())
@@ -74,16 +75,9 @@ struct HomeView: View {
             if let outputText = textPerPage?.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines) {
                 print(outputText)
                 let meds = MedicineParser.shared.convertToMedicineArray(data: outputText, viewContext: viewContext)
-                do {
-                    try viewContext.save()
-                    Task{
-                        await NotificationService.shared.setMedicineNotification(context: viewContext)
-                    }
-                } catch {
-                    // Replace this implementation with code to handle the error appropriately.
-                    // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                    let nsError = error as NSError
-                    fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+                PersistenceController.shared.save()
+                Task{
+                    NotificationService.shared.setMedicineNotification(context: viewContext)
                 }
             }
             self.showScannerView = false
