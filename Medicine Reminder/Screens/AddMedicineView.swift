@@ -28,6 +28,9 @@ struct AddMedicineView: View {
                     med.beforeMeal = false
                     medicine = med
                 }
+                .onDisappear(){
+                    viewContext.rollback()
+                }
         }
     }
 }
