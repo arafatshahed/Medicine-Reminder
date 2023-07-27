@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct TabViews: View {
     @Environment(\.colorScheme) var colorScheme
@@ -58,6 +59,8 @@ struct TabViews: View {
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {
-        TabViews()
+        let viewModel = MedicineScheduleViewModel()
+        return AnyView(TabViews()
+            .environmentObject(viewModel))
     }
 }

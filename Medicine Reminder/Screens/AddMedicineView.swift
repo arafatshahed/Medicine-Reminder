@@ -37,6 +37,7 @@ struct AddMedicineView: View {
 
 struct AddMedicineView_Previews: PreviewProvider {
     static var previews: some View {
-        AddMedicineView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        AddMedicineView()
+            .environmentObject(MedicineScheduleViewModel())
     }
 }
