@@ -108,7 +108,7 @@ struct MedicineDetailsView: View {
                     PersistenceController.shared.save()
                     showToast.toggle()
                     Task{
-                        NotificationService.shared.setMedicineNotification(context: viewContext)
+                        MedicinesHelper.shared.setMedicineNotification(context: viewContext)
                     }
                 }
             }, label: {

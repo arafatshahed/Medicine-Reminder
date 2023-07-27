@@ -77,7 +77,7 @@ struct MedicineScheduleView: View {
                     Spacer()
                     Button(action: {
                         Task{
-                            NotificationService.shared.setMedicineNotification(context: viewContext)
+                            MedicinesHelper.shared.setMedicineNotification(context: viewContext)
                         }
                         showToast.toggle()
                     }, label: {

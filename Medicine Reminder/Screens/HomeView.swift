@@ -77,7 +77,7 @@ struct HomeView: View {
                 let meds = MedicineParser.shared.convertToMedicineArray(data: outputText, viewContext: viewContext)
                 PersistenceController.shared.save()
                 Task{
-                    NotificationService.shared.setMedicineNotification(context: viewContext)
+                    MedicinesHelper.shared.setMedicineNotification(context: viewContext)
                 }
             }
             self.showScannerView = false
