@@ -83,10 +83,11 @@ struct MedicineScheduleView: View {
                     }, label: {
                         Text("Save")
                             .foregroundColor(.white)
+                            .shadow(radius: 2, x: 2, y: 2)
                             .frame(width: UIScreen.main.bounds.width - 80, height: 50, alignment: .center)
                     })
                     .buttonStyle(.borderless)
-                    .background(Color("tealBlue"), alignment: .center)
+                    .background(Color("scheduleButtonColor").opacity(0.8), alignment: .center)
                     .cornerRadius(25)
                 }
                 .offset(y: -60)
@@ -110,6 +111,7 @@ struct ScheduleCardView: View {
             HStack{
                 Text(title)
                     .font(.title2)
+                    .shadow(radius: 2)
                     .padding(.vertical)
                 Spacer()
                 DatePicker("", selection: $time, displayedComponents: .hourAndMinute)

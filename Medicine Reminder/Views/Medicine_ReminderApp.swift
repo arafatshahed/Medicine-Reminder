@@ -10,11 +10,13 @@ import SwiftUI
 @main
 struct Medicine_ReminderApp: App {
     let persistenceController = PersistenceController.shared
+    let medicineScheduleVM = MedicineScheduleViewModel()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                .environmentObject(medicineScheduleVM)
         }
     }
 }

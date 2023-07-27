@@ -22,3 +22,7 @@ struct Schedule: Hashable{
     var turn: MedicineTurn
     var hasPassed: Bool
 }
+
+let morningMedicineTakingTimeKey = "morningMedicineTakingTime"
+let afternoonMedicineTakingTimeKey = "afternoonMedicineTakingTime"
+let nightMedicineTakingTimeKey = "nightMedicineTakingTime"

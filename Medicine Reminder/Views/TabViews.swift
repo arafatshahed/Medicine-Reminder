@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import Lottie
 
 struct TabViews: View {
     @Environment(\.colorScheme) var colorScheme
-    @StateObject private var medicineScheduleVM = MedicineScheduleViewModel()
     @State var showAnimation: Bool = false
     @State var assetName = ""
+
     var body: some View {
         ZStack{
             TabView {
@@ -38,7 +37,6 @@ struct TabViews: View {
                     }
             }
             .accentColor(Color("tealBlue"))
-            .environmentObject(medicineScheduleVM)
             if showAnimation{
                 LottieView(name: assetName, show: $showAnimation)
                     .background(Color.primary.colorInvert())
@@ -57,40 +55,6 @@ struct TabViews: View {
     }
 }
 
-struct LottieView: UIViewRepresentable {
-    var name: String
-    var loopMode: LottieLoopMode = .playOnce
-    @Binding var show: Bool
-    
-    func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
-        let view = UIView(frame: .zero)
-        
-        let animationView = LottieAnimationView(name: name, bundle: Bundle.main)
-        print("LottieAnimationView name: ", name)
-        animationView.contentMode = .scaleAspectFit
-        animationView.loopMode = loopMode
-        animationView.animationSpeed = 1.5
-        animationView.play{(status) in
-            if status{
-                withAnimation(.interactiveSpring(response:0.7, dampingFraction: 0.8, blendDuration: 0.8)) {
-                    show = false
-                }
-            }
-        }
-        
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(animationView)
-        NSLayoutConstraint.activate([
-            animationView.heightAnchor.constraint(equalTo: view.heightAnchor),
-            animationView.widthAnchor.constraint(equalTo: view.widthAnchor)
-        ])
-        
-        return view
-    }
-    
-    func updateUIView(_ uiView: UIViewType, context: Context) {
-    }
-}
 
 struct TabView_Previews: PreviewProvider {
     static var previews: some View {

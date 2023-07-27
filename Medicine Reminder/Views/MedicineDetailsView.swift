@@ -98,8 +98,8 @@ struct MedicineDetailsView: View {
                 get: { medicine.beforeMeal },
                 set: { medicine.beforeMeal = $0 }
             )) {
-                Text("Before Meal").tag(false)
-                Text("After Meal").tag(true)
+                Text("Before Meal").tag(true)
+                Text("After Meal").tag(false)
             }
             .pickerStyle(SegmentedPickerStyle())
             Spacer()

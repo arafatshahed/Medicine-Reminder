@@ -41,12 +41,16 @@ class MedicineScheduleViewModel: ObservableObject {
     }
 
     init() {
-        morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as? Date ?? MedicineScheduleViewModel.generateDefaultDate(hour: 8, minute: 0, second: 0)
-        afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as? Date ?? MedicineScheduleViewModel.generateDefaultDate(hour: 13, minute: 0, second: 0)
-        nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as? Date ?? MedicineScheduleViewModel.generateDefaultDate(hour: 21, minute: 0, second: 0)
+        morningMedicineTakingTime = MedicineScheduleViewModel.generateDefaultDateIfNotSet(key: morningMedicineTakingTimeKey, hour: 8, minute: 0, second: 0)
+        afternoonMedicineTakingTime = MedicineScheduleViewModel.generateDefaultDateIfNotSet(key: afternoonMedicineTakingTimeKey, hour: 13, minute: 0, second: 0)
+        nightMedicineTakingTime = MedicineScheduleViewModel.generateDefaultDateIfNotSet(key: nightMedicineTakingTimeKey, hour: 21, minute: 0, second: 0)
         delayBeforeMeal = 30
     }
-    static func generateDefaultDate(hour: Int, minute: Int, second: Int)->Date{
+    
+    static func generateDefaultDateIfNotSet(key: String, hour: Int, minute: Int, second: Int)->Date{
+        if let medTime = UserDefaults.standard.object(forKey: key) as? Date{
+            return medTime
+        }
         let calendar = Calendar.current
 
         // Get the current date
@@ -66,8 +70,10 @@ class MedicineScheduleViewModel: ObservableObject {
 
         // Create a new date with the updated components
         if let updatedDate = calendar.date(from: updatedComponents) {
+            UserDefaults.standard.set(updatedDate, forKey: key)
             return updatedDate // Output: 2023-07-08 08:00:00 +0000
         }
+        UserDefaults.standard.set(Date(), forKey: key)
         return Date()
     }
     
