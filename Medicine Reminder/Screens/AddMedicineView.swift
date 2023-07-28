@@ -58,6 +58,12 @@ struct AddMedicineView: View {
                 Spacer()
             }
         }
+        .onAppear(){
+            selectedMenu = false
+        }
+        .onDisappear(){
+            selectedMenu = true
+        }
         
     }
     private func makeScannerView()-> ScannerView {

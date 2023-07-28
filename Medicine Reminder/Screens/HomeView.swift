@@ -14,8 +14,6 @@ struct HomeView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.medicineStartDate, ascending: true)],
         animation: .default) private var medicines: FetchedResults<Medicine>
     
-    @State private var showScannerView = false
-    
     @State var medicineTurns = [Schedule]()
     
     var body: some View {
@@ -54,34 +52,7 @@ struct HomeView: View {
             }
             
             .listStyle(PlainListStyle())
-            .toolbar {
-                ToolbarItem {
-                    Button(action: {
-                        showScannerView = true
-                    }) {
-                        Label("Add Item", systemImage: "doc.viewfinder")
-                    }
-                    .sheet(isPresented: $showScannerView, content: {
-                        self.makeScannerView()
-                    })
-                }
-            }
         }
-    }
-    
-    private func makeScannerView()-> ScannerView {
-        ScannerView(completion: {
-            textPerPage in
-            if let outputText = textPerPage?.joined(separator: "\n").trimmingCharacters(in: .whitespacesAndNewlines) {
-                print(outputText)
-                let meds = MedicineParser.shared.convertToMedicineArray(data: outputText, viewContext: viewContext)
-                PersistenceController.shared.save()
-                Task{
-                    MedicinesHelper.shared.setMedicineNotification(context: viewContext)
-                }
-            }
-            self.showScannerView = false
-        })
     }
 }
     
