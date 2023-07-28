@@ -34,11 +34,11 @@ struct MedicineCardView: View {
                                     .font(.system(size: 21, weight: .semibold))
                             }
                             if medicinesTurn == .morning{
-                                Text("Take \(medicine.morningMedicineCount) Pill(s) \(medicine.beforeMeal ? "" : "before meal")")
+                                Text("Take \(medicine.morningMedicineCount) Pill(s) \(medicine.beforeMeal ? "before meal" : "")")
                             }else if medicinesTurn == .afternoon{
-                                Text("Take \(medicine.noonMedicineCount) Pill(s) \(medicine.beforeMeal ? "" : "before meal")")
+                                Text("Take \(medicine.noonMedicineCount) Pill(s) \(medicine.beforeMeal ? "before meal" : "")")
                             } else if medicinesTurn == .night{
-                                Text("Take \(medicine.nightMedicineCount) Pill(s) \(medicine.beforeMeal ? "" : "before meal")")
+                                Text("Take \(medicine.nightMedicineCount) Pill(s) \(medicine.beforeMeal ? "before meal" : "")")
                             } else{
                                 Text("Take \(medicine.morningMedicineCount + medicine.noonMedicineCount + medicine.nightMedicineCount) Pill(s) daily")
                             }

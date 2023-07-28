@@ -23,7 +23,7 @@ class MedicinesHelper{
         let morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as! Date
         let nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as! Date
         let afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as! Date
-        let delayBeforeMeal = (UserDefaults.standard.object(forKey: "delayBeforeMeal") as? Int ?? 30) * -1
+        let delayBeforeMeal = UserDefaults.standard.value(forKey: "delayBeforeMeal") as! Int * -1
         
         let fetchRequest : NSFetchRequest<Medicine> = Medicine.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "medicineEndDate", ascending: true)

@@ -36,7 +36,7 @@ class MedicineScheduleViewModel: ObservableObject {
     
     @Published var delayBeforeMeal: Int {
         didSet {
-            UserDefaults.standard.set(delayBeforeMeal, forKey: "delayBeforeMeal")
+            UserDefaults.standard.setValue(delayBeforeMeal, forKey: "delayBeforeMeal")
         }
     }
 
