@@ -10,6 +10,7 @@ import SwiftUI
 struct AddMedicineView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State var selectedMenu = false
+    @State var scanEnable = true
     @State var medicine: Medicine?
     var body: some View {
         VStack{
@@ -46,23 +47,26 @@ struct AddMedicineView: View {
                 }
             }
             else{
-                makeScannerView()
-                    .cornerRadius(10)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(.blue, lineWidth: 2)
+                if scanEnable{
+                    makeScannerView()
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(.blue, lineWidth: 2)
+                            
+                        )
+                        .padding(.horizontal)
                         
-                    )
-                    .padding(.horizontal)
-                    
-                Spacer()
+                    Spacer()
+                }
+                
             }
         }
         .onAppear(){
-            selectedMenu = false
+            scanEnable = true
         }
         .onDisappear(){
-            selectedMenu = true
+            scanEnable = false
         }
         
     }
