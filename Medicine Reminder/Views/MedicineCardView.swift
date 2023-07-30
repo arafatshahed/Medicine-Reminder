@@ -17,21 +17,21 @@ struct MedicineCardView: View {
             MedicineDetailsView(medicine: medicine)
         } label: {
             Rectangle()
-                .frame(height: 70)
+                .frame(height: 60)
                 .cornerRadius(10)
                 .foregroundColor(Color("itemBG"))
                 .overlay(content: {
                     HStack{
                         Image(systemName: "pills")
-                            .font(.system(size: 28))
+                            .font(.system(size: 25))
                             .padding(.leading, 15)
                         Rectangle()
-                            .frame(width: 3, height: 42)
-                            .padding(.horizontal, 12)
-                        VStack(alignment: .leading, spacing: 5){
+                            .frame(width: 3, height: 35)
+                            .padding(.horizontal, 10)
+                        VStack(alignment: .leading, spacing: 2){
                             if let medName = medicine.medicineName{
                                 Text(medName)
-                                    .font(.system(size: 21, weight: .semibold))
+                                    .font(.system(size: 19, weight: .semibold))
                             }
                             if medicinesTurn == .morning{
                                 Text("Take \(medicine.morningMedicineCount) Pill(s) \(medicine.beforeMeal ? "before meal" : "")")

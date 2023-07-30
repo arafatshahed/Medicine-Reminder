@@ -22,12 +22,20 @@ class MedicineParser{
         
         for i in 0..<medicineData.count{
             let data = medicineData[i].replacingOccurrences(of: " ", with: "")
-            if data == "1"{
-                medicineData.removeFirst(i)
+            print("--", data)
+            if data.hasPrefix("Before"){
+                medicineData.removeFirst(i + 1)
                 break
-            
+
             }
         }
+        print("----", medicineData)
+        if let firstIndex = (medicineData[0].first){
+            if Int16(String(firstIndex)) == nil{
+                medicineData.insert("1", at: 0)
+            }
+        }
+        print("---->>", medicineData)
         // remove last indexes if it is string of number
         for i in (0..<medicineData.count).reversed(){
             let data = medicineData[i].replacingOccurrences(of: " ", with: "")
@@ -39,8 +47,16 @@ class MedicineParser{
             }
            
         }
+        
 
-
+        print("----**", medicineData)
+        for i in stride(from: 0, to: medicineData.count, by: 5) {
+            let end = min(i + 5, medicineData.count)
+            let chunk = Array(medicineData[i..<end])
+            
+            print("medicineTBAdded ", terminator: "")
+            print(chunk.map({ String($0) }).joined(separator: " | "))
+        }
         for i in 0..<medicineData.count{
     
             if i%5 == 0 && i+4 < medicineData.count {

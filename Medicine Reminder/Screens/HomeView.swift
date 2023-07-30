@@ -21,7 +21,7 @@ struct HomeView: View {
             List(medicineTurns, id: \.self) {t in
                 if t.turn == .morning{
                     Text("\(t.hasPassed ? "Tomorrow" : "" ) \(medicineScheduleVM.morningMedicineTakingTime, formatter: medicineScheduleVM.itemFormatter)") //Your Morning Medicines at
-                        .font(.title)
+                        .font(.title2)
                     ForEach(medicines.filter { $0.morningMedicineCount != 0 }) { medicine in
                         MedicineCardView(medicine: medicine, isDeleteDisabled: true, medicinesTurn: .morning)
                     }
@@ -29,7 +29,7 @@ struct HomeView: View {
                 }
                 if t.turn == .afternoon{
                     Text("\(t.hasPassed ? "Tomorrow" : "" ) \(medicineScheduleVM.afternoonMedicineTakingTime , formatter: medicineScheduleVM.itemFormatter)") //Your Afternoon Medicines at
-                        .font(.title)
+                        .font(.title2)
                     ForEach(medicines.filter { $0.noonMedicineCount != 0 }) { medicine in
                         MedicineCardView(medicine: medicine, isDeleteDisabled: true, medicinesTurn: .afternoon)
                     }
@@ -37,7 +37,7 @@ struct HomeView: View {
                 }
                 if t.turn == .night{
                     Text("\(t.hasPassed ? "Tomorrow" : "" ) \(medicineScheduleVM.nightMedicineTakingTime , formatter: medicineScheduleVM.itemFormatter)") //Your Night Medicines at
-                        .font(.title)
+                        .font(.title2)
                     ForEach(medicines.filter { $0.nightMedicineCount != 0 }) { medicine in
                         MedicineCardView(medicine: medicine, isDeleteDisabled: true, medicinesTurn: .night)
                     }

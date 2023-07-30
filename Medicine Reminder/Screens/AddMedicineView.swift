@@ -12,6 +12,8 @@ struct AddMedicineView: View {
     @State var selectedMenu = false
     @State var scanEnable = true
     @State var medicine: Medicine?
+    @State var showAlert = false
+    @State var showTip = true
     var body: some View {
         VStack{
             Picker("Toggle", selection: $selectedMenu) {
@@ -47,16 +49,24 @@ struct AddMedicineView: View {
                 }
             }
             else{
-                if scanEnable{
-                    makeScannerView()
-                        .cornerRadius(10)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(.blue, lineWidth: 2)
-                            
-                        )
-                        .padding(.horizontal)
+                VStack(alignment: .leading){
+                    if showTip{
+                        Label("Crop the image properly for better results!", systemImage: "info.circle")
+                            .font(.caption)
+                            .padding(.leading)
+                    }
+                    
                         
+                    if scanEnable{
+                        makeScannerView()
+                            .cornerRadius(10)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(.blue, lineWidth: 2)
+                                
+                            )
+                            .padding(.horizontal)
+                    }
                     Spacer()
                 }
                 
@@ -64,9 +74,23 @@ struct AddMedicineView: View {
         }
         .onAppear(){
             scanEnable = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                withAnimation(.default){
+                    showTip = false
+                }
+                
+            }
         }
         .onDisappear(){
             scanEnable = false
+        }
+        .alert("Scan Completed", isPresented: $showAlert) {
+            Button("OK", role: .cancel) {
+                withAnimation(.default){
+                    scanEnable = true
+                    showTip = true
+                }
+            }
         }
         
     }
@@ -80,6 +104,11 @@ struct AddMedicineView: View {
                 Task{
                     MedicinesHelper.shared.setMedicineNotification(context: viewContext)
                 }
+                scanEnable = false
+                showAlert = true
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1){
+//                    scanEnable = true
+//                }
             }
         })
     }

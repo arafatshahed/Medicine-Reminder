@@ -22,12 +22,12 @@ final class TextRecognizer {
                 guard let cgImage = self.cameraScan.imageOfPage(at: $0).cgImage else {
                     return nil
                 }
-                let grayscaleImage = UIImage(cgImage: cgImage).convertToGrayscale()?.cgImage
-                return grayscaleImage
+                return cgImage
             }
             let imagesAndRequests = images.map { (image: $0, request: VNRecognizeTextRequest()) }
             let textPerPage = imagesAndRequests.map { image, request -> String in
                 request.recognitionLevel = .accurate
+                request.usesLanguageCorrection = false
                 request.recognitionLanguages = ["en_US"]
                 let handler = VNImageRequestHandler(cgImage: image, options: [:])
                 do{
@@ -44,25 +44,6 @@ final class TextRecognizer {
                 completionHandler(textPerPage)
             }
         }
-    }
-}
-
-extension UIImage {
-    func convertToGrayscale() -> UIImage? {
-        let imageRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        let colorSpace = CGColorSpaceCreateDeviceGray()
-        
-        guard let context = CGContext(data: nil, width: Int(size.width), height: Int(size.height), bitsPerComponent: 8, bytesPerRow: 0, space: colorSpace, bitmapInfo: CGImageAlphaInfo.none.rawValue) else {
-            return nil
-        }
-        
-        context.draw(cgImage!, in: imageRect)
-        
-        guard let grayscaleImage = context.makeImage() else {
-            return nil
-        }
-        
-        return UIImage(cgImage: grayscaleImage)
     }
 }
 
