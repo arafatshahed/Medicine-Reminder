@@ -9,6 +9,7 @@ import SwiftUI
 
 @main
 struct Medicine_ReminderApp: App {
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     let persistenceController = PersistenceController.shared
     let medicineScheduleVM = MedicineScheduleViewModel()
 

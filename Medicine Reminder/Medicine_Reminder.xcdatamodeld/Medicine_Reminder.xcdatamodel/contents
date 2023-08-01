@@ -8,5 +8,10 @@
         <attribute name="morningMedicineCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="nightMedicineCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="noonMedicineCount" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="usage" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MedicineUsage" inverseName="medicine" inverseEntity="MedicineUsage"/>
+    </entity>
+    <entity name="MedicineUsage" representedClassName="MedicineUsage" syncable="YES" codeGenerationType="class">
+        <attribute name="consumptionTime" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="medicine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Medicine" inverseName="usage" inverseEntity="Medicine"/>
     </entity>
 </model>
