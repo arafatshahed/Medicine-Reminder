@@ -18,25 +18,25 @@ class MedicineScheduleViewModel: ObservableObject {
     }()
     @Published var morningMedicineTakingTime: Date {
         didSet {
-            UserDefaults.standard.set(morningMedicineTakingTime, forKey: "morningMedicineTakingTime")
+            UserDefaults.standard.set(morningMedicineTakingTime, forKey: morningMedicineTakingTimeKey)
         }
     }
 
     @Published var afternoonMedicineTakingTime: Date {
         didSet {
-            UserDefaults.standard.set(afternoonMedicineTakingTime, forKey: "afternoonMedicineTakingTime")
+            UserDefaults.standard.set(afternoonMedicineTakingTime, forKey: afternoonMedicineTakingTimeKey)
         }
     }
 
     @Published var nightMedicineTakingTime: Date {
         didSet {
-            UserDefaults.standard.set(nightMedicineTakingTime, forKey: "nightMedicineTakingTime")
+            UserDefaults.standard.set(nightMedicineTakingTime, forKey: nightMedicineTakingTimeKey)
         }
     }
     
     @Published var delayBeforeMeal: Int {
         didSet {
-            UserDefaults.standard.setValue(delayBeforeMeal, forKey: "delayBeforeMeal")
+            UserDefaults.standard.setValue(delayBeforeMeal, forKey: delayBeforeMealKey)
         }
     }
 
@@ -44,7 +44,15 @@ class MedicineScheduleViewModel: ObservableObject {
         morningMedicineTakingTime = MedicineScheduleViewModel.generateDefaultDateIfNotSet(key: morningMedicineTakingTimeKey, hour: 8, minute: 0, second: 0)
         afternoonMedicineTakingTime = MedicineScheduleViewModel.generateDefaultDateIfNotSet(key: afternoonMedicineTakingTimeKey, hour: 13, minute: 0, second: 0)
         nightMedicineTakingTime = MedicineScheduleViewModel.generateDefaultDateIfNotSet(key: nightMedicineTakingTimeKey, hour: 21, minute: 0, second: 0)
-        delayBeforeMeal = 30
+        delayBeforeMeal = MedicineScheduleViewModel.generateDefaultDelayIfNotSet()
+    }
+    
+    static func generateDefaultDelayIfNotSet()-> Int{
+        if let delayBeforeMeal = UserDefaults.standard.object(forKey: delayBeforeMealKey) as? Int{
+            return delayBeforeMeal
+        }
+        UserDefaults.standard.setValue(30, forKey: delayBeforeMealKey)
+        return 30
     }
     
     static func generateDefaultDateIfNotSet(key: String, hour: Int, minute: Int, second: Int)->Date{

@@ -82,6 +82,6 @@ struct NotificationActionView : View {
 
 struct NotificationActionView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationActionView(message: "Ace,Napa,Esomi", title: "Afternoon Medicine", pushNavigationBinding: Binding.constant(true))
+        NotificationActionView(message: "Take Ace,Napa,Esomi", title: "Afternoon Medicine", pushNavigationBinding: Binding.constant(true))
     }
 }

@@ -20,10 +20,10 @@ class MedicinesHelper{
     func setMedicineNotification(context: NSManagedObjectContext){
         NotificationService.shared.removeAllPendingNotifications()
         count = 0
-        let morningMedicineTakingTime = UserDefaults.standard.object(forKey: "morningMedicineTakingTime") as! Date
-        let nightMedicineTakingTime = UserDefaults.standard.object(forKey: "nightMedicineTakingTime") as! Date
-        let afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: "afternoonMedicineTakingTime") as! Date
-        let delayBeforeMeal = UserDefaults.standard.value(forKey: "delayBeforeMeal") as! Int * -1
+        let morningMedicineTakingTime = UserDefaults.standard.object(forKey: morningMedicineTakingTimeKey) as! Date
+        let nightMedicineTakingTime = UserDefaults.standard.object(forKey: nightMedicineTakingTimeKey) as! Date
+        let afternoonMedicineTakingTime = UserDefaults.standard.object(forKey: afternoonMedicineTakingTimeKey) as! Date
+        let delayBeforeMeal = UserDefaults.standard.value(forKey: delayBeforeMealKey) as! Int * -1
         
         let fetchRequest : NSFetchRequest<Medicine> = Medicine.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "medicineEndDate", ascending: true)

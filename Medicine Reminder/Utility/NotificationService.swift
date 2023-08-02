@@ -101,14 +101,15 @@ class AppDelegate: NotificationService, UIApplicationDelegate, UNUserNotificatio
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         let center = UNUserNotificationCenter.current()
         center.delegate = self
-        
+        UIApplication.shared.applicationIconBadgeNumber = 0
         return true
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse) async {
         
-        
+//        UIApplication.shared.applicationIconBadgeNumber += 1
         if let body = response.notification.request.content.userInfo["body"] as? String, let title = response.notification.request.content.userInfo["title"] as? String {
             DispatchQueue.main.asyncAfter(deadline: .now()) {
+                UIApplication.shared.applicationIconBadgeNumber -= 1
                 AppState.shared.pageToNavigationTo = body
                 AppState.shared.title = title
             }

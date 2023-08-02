@@ -11,7 +11,7 @@ struct HomeView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @EnvironmentObject private var medicineScheduleVM: MedicineScheduleViewModel
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.medicineStartDate, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Medicine.medicineStartDate, ascending: true)], predicate: medicineEndDatePredicate,
         animation: .default) private var medicines: FetchedResults<Medicine>
     
     @State var medicineTurns = [Schedule]()

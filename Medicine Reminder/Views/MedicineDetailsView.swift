@@ -94,10 +94,7 @@ struct MedicineDetailsView: View {
                 .labelsHidden()
             }
             .padding(.vertical)
-            Picker("Toggle", selection: Binding(
-                get: { medicine.beforeMeal },
-                set: { medicine.beforeMeal = $0 }
-            )) {
+            Picker("Toggle", selection: $medicine.beforeMeal) {
                 Text("Before Meal").tag(true)
                 Text("After Meal").tag(false)
             }

@@ -26,3 +26,15 @@ struct Schedule: Hashable{
 let morningMedicineTakingTimeKey = "morningMedicineTakingTime"
 let afternoonMedicineTakingTimeKey = "afternoonMedicineTakingTime"
 let nightMedicineTakingTimeKey = "nightMedicineTakingTime"
+let delayBeforeMealKey = "delayBeforeMeal"
+
+let medicineEndDatePredicate = NSPredicate(format: "medicineEndDate > %@", Date() as NSDate)
+//let morningMedicinePredicate = NSPredicate(format: "morningMedicineCount > %@", 0 as NSNumber)
+//let afternoonMedicinePredicate = NSPredicate(format: "noonMedicineCount > %@", 0 as NSNumber)
+//let nightMedicinePredicate = NSPredicate(format: "nightMedicineCount > %@", 0 as NSNumber)
+//let beforeMealPredicate = NSPredicate(format: "beforeMeal == %@", true as NSNumber)
+//let afterMealPredicate = NSPredicate(format: "beforeMeal == %@", false as NSNumber)
+//let morningMedicineEndDatePredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [medicineEndDatePredicate, morningMedicinePredicate])
+//let afternoonMedicineEndDatePredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [medicineEndDatePredicate, afternoonMedicinePredicate])
+//let nightMedicineEndDatePredicate = NSCompoundPredicate(type: NSCompoundPredicate.LogicalType.and, subpredicates: [medicineEndDatePredicate, nightMedicinePredicate])
+
