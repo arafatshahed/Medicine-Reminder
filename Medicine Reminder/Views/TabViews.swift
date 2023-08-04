@@ -26,7 +26,7 @@ struct TabViews: View {
     var body: some View {
         ZStack{
             if pushNavigationBinding.wrappedValue{
-                NotificationActionView(message: appState.pageToNavigationTo ?? "", title: appState.title ?? "", pushNavigationBinding: pushNavigationBinding)
+                NotificationActionView(bodyText: appState.pageToNavigationTo ?? "", title: appState.title ?? "", pushNavigationBinding: pushNavigationBinding)
             } else{
                 TabView {
                     HomeView()

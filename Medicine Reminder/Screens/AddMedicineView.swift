@@ -13,7 +13,7 @@ struct AddMedicineView: View {
     @State var scanEnable = true
     @State var medicine: Medicine?
     @State var showAlert = false
-    @State var showTip = true
+    @State var showTip = false
     var body: some View {
         VStack{
             Picker("Toggle", selection: $selectedMenu) {
@@ -74,11 +74,11 @@ struct AddMedicineView: View {
         }
         .onAppear(){
             scanEnable = true
+            showTip = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 withAnimation(.default){
                     showTip = false
                 }
-                
             }
         }
         .onDisappear(){

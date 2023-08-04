@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct NotificationActionView : View {
-    var message : String
+    var bodyText : String
     var title: String
     @Binding var pushNavigationBinding: Bool
     @State var medicineNameList: [String] = []
@@ -61,7 +61,7 @@ struct NotificationActionView : View {
                             })
                         }
                         .buttonStyle(.plain)
-                        .font(.system(size: 25))
+                        .font(.system(size: 28))
                     }
                     .listRowSeparator(.hidden)
                     .padding()
@@ -74,7 +74,8 @@ struct NotificationActionView : View {
         }
         
         .onAppear(){
-            medicineNameList = message.components(separatedBy: ",")
+            let trimmedInput = bodyText.replacingOccurrences(of: "Take ", with: "")
+            medicineNameList = trimmedInput.split(separator: ",").map { String($0).trimmingCharacters(in: .whitespacesAndNewlines) }
         }
     }
     
@@ -82,6 +83,6 @@ struct NotificationActionView : View {
 
 struct NotificationActionView_Previews: PreviewProvider {
     static var previews: some View {
-        NotificationActionView(message: "Take Ace,Napa,Esomi", title: "Afternoon Medicine", pushNavigationBinding: Binding.constant(true))
+        NotificationActionView(bodyText: "Take Napa Extra, Ace, Antibiotic", title: "Afternoon Medicine", pushNavigationBinding: Binding.constant(true))
     }
 }
