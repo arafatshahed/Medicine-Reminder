@@ -21,12 +21,14 @@ I'm a Software Engineer, currently working as a iOS developer @BJIT Limited
 
 ## Screenshots
 
-![App Screenshot](https://i.ibb.co/VMLFBZC/screenshot-1.png)
-![App Screenshot](https://i.ibb.co/Vmhw24g/screenshot-3.png)
-![App Screenshot](https://i.ibb.co/4V1fS8w/screenshot-4.png)
-![App Screenshot](https://i.ibb.co/HKvsP3z/screenshot-7.png)
-
-![App Screenshot](./Medicine Reminder/Screenshots/screenshot 2.png)
+Onboarding Screen
+![Onboarding Screen](https://i.ibb.co/VMLFBZC/screenshot-1.png)
+Next 3 Schedule
+![Next 3 Schedule](https://i.ibb.co/Vmhw24g/screenshot-3.png)
+Scan Medicine
+![Scan Medicine](https://i.ibb.co/4V1fS8w/screenshot-4.png)
+Medicine Shedule
+![Medicine Shedule](https://i.ibb.co/HKvsP3z/screenshot-7.png)
 
 ## Tech Stack
 
