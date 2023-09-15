@@ -21,21 +21,24 @@ I'm a Software Engineer, currently working as a iOS developer @BJIT Limited
 
 ## Screenshots
 
-#### Onboarding Screen
-
-![Onboarding Screen](https://i.ibb.co/VMLFBZC/screenshot-1.png)
-
-#### Next 3 Schedule
-
-![Next 3 Schedule](https://i.ibb.co/Vmhw24g/screenshot-3.png)
-
-#### Scan Medicine
-
-![Scan Medicine](https://i.ibb.co/4V1fS8w/screenshot-4.png)
-
-#### Medicine Shedule
-
-![Medicine Shedule](https://i.ibb.co/HKvsP3z/screenshot-7.png)
+<table>
+<tr>
+    <th>Onboarding Screen</th>
+    <th>Next 3 Schedule</th>
+</tr>
+<tr>
+    <td><img src="https://i.ibb.co/VMLFBZC/screenshot-1.png" width="400"></td>
+    <td><img src="https://i.ibb.co/Vmhw24g/screenshot-3.png" width="400"></td>
+</tr>
+<tr>
+    <th>Scan Medicine</th>
+    <th>Medicine Schedule</th>
+</tr>
+<tr>
+    <td><img src="https://i.ibb.co/4V1fS8w/screenshot-4.png" width="400"></td>
+    <td><img src="https://i.ibb.co/HKvsP3z/screenshot-7.png" width="400"></td>
+</tr>
+</table>
 
 ## Tech Stack
 
